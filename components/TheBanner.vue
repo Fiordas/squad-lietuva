@@ -19,6 +19,7 @@ export default {
 <style scoped>
 .parallax {
   height: 40vh;
+  overflow: hidden;
 }
 
 img {

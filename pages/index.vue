@@ -35,11 +35,7 @@ export default {
 }
 </script>
 
-
 <style scoped>
-section {
-  background-color: hsl(0, 0%, 8%);
-}
 iframe {
   min-height: 500px;
 }
