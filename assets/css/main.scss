@@ -5,6 +5,31 @@ $primary-invert: findColorInvert($primary);
 
 $body-background-color: $black;
 
+.datepicker {
+  .dropdown-content {
+    background: $dark;
+  }
+}
+
+.datepicker-header {
+  .datepicker-cell {
+    color: $light !important;
+  }
+}
+
+.datepicker-cell {
+  &.is-unselectable {
+    color: $grey !important;
+  }
+  &.is-selectable {
+    color: $grey-lighter !important;
+    &:hover:not(.is-selected),
+    &:focus:not(.is-selected) {
+      color: $dark !important;
+    }
+  }
+}
+
 $colors: (
   'white': (
     $white,
