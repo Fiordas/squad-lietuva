@@ -15,7 +15,7 @@
       <div class='navbar-menu'>
         <div class='navbar-start has-text-weight-semibold'>
           <nuxt-link to='/' class='navbar-item'>Pagrindinis</nuxt-link>
-          <nuxt-link to='/' class='navbar-item'>Turnyrai</nuxt-link>
+          <nuxt-link to='turnyrai' class='navbar-item'>Turnyrai</nuxt-link>
           <nuxt-link to='/' class='navbar-item'>Forumas</nuxt-link>
         </div>
         <div class='navbar-end'>
