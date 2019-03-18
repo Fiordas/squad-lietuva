@@ -26,7 +26,7 @@
             </button>
           </div>
           <div class='navbar-item'>
-            <b-dropdown position='is-bottom-left' aria-role='menu'>
+            <b-dropdown ref='dropdown' position='is-bottom-left' aria-role='menu'>
               <button class='button is-primary is-outlined is-small' slot='trigger'>
                 <span>Prisijungti</span>
                 <b-icon icon='menu-down'></b-icon>
@@ -35,7 +35,7 @@
               <b-dropdown-item aria-role='menu-item' custom paddingless>
                 <div class='modal-card' style='width:300px;'>
                   <section class='modal-card-body'>
-                    <SignIn/>
+                    <SignIn @close-dropdown='closeDropdown'/>
                     <hr class='dropdown-divider'>
                     <b-field>
                       <small>Naujas vartotojas?</small>
@@ -69,6 +69,11 @@ export default {
   data() {
     return {
       isSignUpModalActive: false
+    }
+  },
+  methods: {
+    closeDropdown() {
+      this.$refs.dropdown.toggle()
     }
   }
 }

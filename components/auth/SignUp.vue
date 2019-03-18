@@ -1,5 +1,5 @@
 <template>
-  <form action>
+  <form @submit.prevent='onSubmit'>
     <div class='modal-card'>
       <section class='modal-card-body'>
         <div class='columns'>
@@ -9,13 +9,13 @@
               <b-input type='text' size='is-small' required autofocus></b-input>
             </b-field>
             <b-field label='El. pašto adresas' custom-class='is-small'>
-              <b-input type='email' size='is-small' required></b-input>
+              <b-input type='email' v-model='email' size='is-small' required></b-input>
             </b-field>
             <b-field label='Pakartoti el. pašto adresą' custom-class='is-small'>
               <b-input type='email' size='is-small' required></b-input>
             </b-field>
             <b-field label='Slaptažodis' custom-class='is-small'>
-              <b-input type='password' size='is-small' password-reveal required></b-input>
+              <b-input type='password' v-model='password' size='is-small' password-reveal required></b-input>
             </b-field>
             <b-field label='Pakartoti slaptažodį' custom-class='is-small'>
               <b-input type='password' size='is-small' password-reveal required></b-input>
@@ -35,6 +35,31 @@
     </div>
   </form>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    onSubmit() {
+      this.$store
+        .dispatch('auth/authenticateUser', {
+          isSignUp: true,
+          email: this.email,
+          password: this.password
+        })
+        .then(() => {
+          this.$parent.close()
+        })
+    }
+  }
+}
+</script>
+
 
 <style scoped>
 .column.has-vertically-aligned-content {
