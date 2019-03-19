@@ -11,6 +11,7 @@ import TheHeader from '@/components/TheHeader'
 import TheFooter from '@/components/TheFooter'
 
 export default {
+  middleware: 'check-auth',
   components: {
     TheHeader,
     TheFooter

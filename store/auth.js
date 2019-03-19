@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 export const state = () => ({
   token: null
 })
@@ -5,6 +7,9 @@ export const state = () => ({
 export const mutations = {
   setToken(state, token) {
     state.token = token
+  },
+  clearToken(state) {
+    state.token = null
   }
 }
 
@@ -20,8 +25,45 @@ export const actions = {
       })
       .then(result => {
         vuexContext.commit('setToken', result.idToken)
+        Cookies.set('token', result.idToken)
+        Cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
       })
       .catch(error => console.log(error))
+  },
+  initAuth(vuexContext, req) {
+    let token
+    let tokenExpiration
+
+    if (req) {
+      // server-side
+      if (!req.headers.cookie) {
+        return
+      }
+      token = req.headers.cookie
+        .split(';')
+        .find(c => c.trim().startsWith('token='))
+        .split('=')[1]
+      tokenExpiration = req.headers.cookie
+        .split(';')
+        .find(c => c.trim().startsWith('tokenExpiration='))
+        .split('=')[1]
+    } else {
+      // client-side
+      token = Cookies.get('token')
+      tokenExpiration = Cookies.get('tokenExpiration')
+    }
+
+    if (!token) {
+      return
+    }
+
+    if (new Date().getTime() > +tokenExpiration) {
+      vuexContext.commit('clearToken')
+      Cookies.remove('token')
+      Cookies.remove('tokenExpiration')
+      return
+    }
+    vuexContext.commit('setToken', token)
   }
 }
 
