@@ -58,12 +58,15 @@ export const actions = {
     }
 
     if (new Date().getTime() > +tokenExpiration) {
-      vuexContext.commit('clearToken')
-      Cookies.remove('token')
-      Cookies.remove('tokenExpiration')
+      vuexContext.dispatch('logout')
       return
     }
     vuexContext.commit('setToken', token)
+  },
+  logout(vuexContext) {
+    vuexContext.commit('clearToken')
+    Cookies.remove('token')
+    Cookies.remove('tokenExpiration')
   }
 }
 
