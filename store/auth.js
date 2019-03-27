@@ -1,5 +1,3 @@
-import Cookies from 'js-cookie'
-
 export const state = () => ({
   token: null
 })
@@ -25,39 +23,35 @@ export const actions = {
       })
       .then(result => {
         vuexContext.commit('setToken', result.idToken)
-        Cookies.set('token', result.idToken)
-        Cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
+        this.$cookies.set('token', result.idToken)
+        this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
+        if (authData.rememberUser) this.$cookies.set('refreshToken', result.refreshToken)
       })
       .catch(error => console.log(error))
   },
   initAuth(vuexContext, req) {
-    let token
-    let tokenExpiration
+    const token = this.$cookies.get('token')
+    const tokenExpiration = this.$cookies.get('tokenExpiration')
+    const refreshToken = this.$cookies.get('refreshToken')
 
-    if (req) {
-      // server-side
-      if (!req.headers.cookie) {
-        return
-      }
-      token = req.headers.cookie
-        .split(';')
-        .find(c => c.trim().startsWith('token='))
-        .split('=')[1]
-      tokenExpiration = req.headers.cookie
-        .split(';')
-        .find(c => c.trim().startsWith('tokenExpiration='))
-        .split('=')[1]
-    } else {
-      // client-side
-      token = Cookies.get('token')
-      tokenExpiration = Cookies.get('tokenExpiration')
-    }
-
-    if (!token) {
-      return
-    }
+    if (!token || !tokenExpiration) return
 
     if (new Date().getTime() > +tokenExpiration) {
+      if (req) return
+      if (refreshToken) {
+        this.$axios
+          .$post('https://securetoken.googleapis.com/v1/token?key=' + process.env.API_KEY, {
+            grant_type: 'refresh_token',
+            refresh_token: refreshToken
+          })
+          .then(result => {
+            vuexContext.commit('setToken', result.id_token)
+            this.$cookies.set('token', result.id_token)
+            this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expires_in) * 1000)
+          })
+          .catch(error => console.log(error))
+        return
+      }
       vuexContext.dispatch('logout')
       return
     }
@@ -65,8 +59,7 @@ export const actions = {
   },
   logout(vuexContext) {
     vuexContext.commit('clearToken')
-    Cookies.remove('token')
-    Cookies.remove('tokenExpiration')
+    this.$cookies.removeAll()
   }
 }
 

@@ -11,9 +11,6 @@
             <b-field label='El. pašto adresas' custom-class='is-small'>
               <b-input type='email' v-model='email' size='is-small' required></b-input>
             </b-field>
-            <b-field label='Pakartoti el. pašto adresą' custom-class='is-small'>
-              <b-input type='email' size='is-small' required></b-input>
-            </b-field>
             <b-field label='Slaptažodis' custom-class='is-small'>
               <b-input type='password' v-model='password' size='is-small' password-reveal required></b-input>
             </b-field>
@@ -49,6 +46,7 @@ export default {
       this.$store
         .dispatch('auth/authenticateUser', {
           isSignUp: true,
+          rememberUser: false,
           email: this.email,
           password: this.password
         })

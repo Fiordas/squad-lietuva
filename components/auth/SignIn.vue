@@ -7,7 +7,7 @@
       <b-input type='password' v-model='password' size='is-small' password-reveal required></b-input>
     </b-field>
     <b-field>
-      <b-checkbox size='is-small'>Prisiminti mane</b-checkbox>
+      <b-checkbox v-model='rememberUser' size='is-small'>Prisiminti mane</b-checkbox>
     </b-field>
     <b-field>
       <button class='button is-primary is-fullwidth is-rounded'>Prisijungti</button>
@@ -20,7 +20,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      rememberUser: false
     }
   },
   methods: {
@@ -28,6 +29,7 @@ export default {
       this.$store
         .dispatch('auth/authenticateUser', {
           isSignUp: false,
+          rememberUser: this.rememberUser,
           email: this.email,
           password: this.password
         })
