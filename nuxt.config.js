@@ -40,7 +40,8 @@ module.exports = {
     '@nuxtjs/axios',
     'nuxt-buefy',
     '@nuxtjs/pwa',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    'cookie-universal-nuxt'
   ],
   buefy: {
     css: false,
