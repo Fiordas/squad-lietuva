@@ -29,7 +29,7 @@ export const actions = {
       })
       .catch(error => console.log(error))
   },
-  initAuth(vuexContext, req) {
+  initAuth(vuexContext) {
     const token = this.$cookies.get('token')
     const tokenExpiration = this.$cookies.get('tokenExpiration')
     const refreshToken = this.$cookies.get('refreshToken')
@@ -37,7 +37,7 @@ export const actions = {
     if (!token || !tokenExpiration) return
 
     if (new Date().getTime() > +tokenExpiration) {
-      if (req) return
+      if (process.server) return
       if (refreshToken) {
         this.$axios
           .$post('https://securetoken.googleapis.com/v1/token?key=' + process.env.API_KEY, {
