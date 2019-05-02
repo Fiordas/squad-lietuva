@@ -30,8 +30,7 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
-
+  plugins: ['~/plugins/axios', '~/plugins/firestore-map', '~/plugins/firestore-parser'],
   /*
    ** Nuxt.js modules
    */
