@@ -12,7 +12,7 @@ export const mutations = {
 }
 
 export const actions = {
-  authenticateUser(vuexContext, authData) {
+  authenticateUser({ commit, dispatch }, authData) {
     let authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='
     if (authData.isSignUp) authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='
     return this.$axios
@@ -22,14 +22,17 @@ export const actions = {
         returnSecureToken: true
       })
       .then(result => {
-        vuexContext.commit('setToken', result.idToken)
+        commit('setToken', result.idToken)
+        if (authData.isSignUp) dispatch('users/setUserData', { authData, userId: result.localId }, { root: true })
+        else dispatch('users/getUserData', result.localId, { root: true })
         this.$cookies.set('token', result.idToken)
         this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
+        this.$cookies.set('userId', result.localId)
         if (authData.rememberUser) this.$cookies.set('refreshToken', result.refreshToken)
       })
       .catch(error => console.log(error))
   },
-  initAuth(vuexContext) {
+  initAuth({ dispatch }) {
     const token = this.$cookies.get('token')
     const tokenExpiration = this.$cookies.get('tokenExpiration')
     const refreshToken = this.$cookies.get('refreshToken')
@@ -39,26 +42,29 @@ export const actions = {
     if (new Date().getTime() > +tokenExpiration) {
       if (process.server) return
       if (refreshToken) {
-        this.$axios
-          .$post('https://securetoken.googleapis.com/v1/token?key=' + process.env.API_KEY, {
-            grant_type: 'refresh_token',
-            refresh_token: refreshToken
-          })
-          .then(result => {
-            vuexContext.commit('setToken', result.id_token)
-            this.$cookies.set('token', result.id_token)
-            this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expires_in) * 1000)
-          })
-          .catch(error => console.log(error))
+        dispatch('refreshToken', refreshToken)
         return
       }
-      vuexContext.dispatch('logout')
+      dispatch('logout') // TODO: warn user about session expiration
       return
     }
-    vuexContext.commit('setToken', token)
   },
-  logout(vuexContext) {
-    vuexContext.commit('clearToken')
+  refreshToken({ commit }, refreshToken) {
+    return this.$axios
+      .$post('https://securetoken.googleapis.com/v1/token?key=' + process.env.API_KEY, {
+        grant_type: 'refresh_token',
+        refresh_token: refreshToken
+      })
+      .then(result => {
+        commit('setToken', result.id_token)
+        this.$cookies.set('token', result.id_token)
+        this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expires_in) * 1000)
+      })
+      .catch(error => console.log(error))
+  },
+  logout({ commit }) {
+    commit('clearToken')
+    commit('users/clearUser', null, { root: true })
     this.$cookies.removeAll()
   }
 }
@@ -66,5 +72,8 @@ export const actions = {
 export const getters = {
   isAuthenticated(state) {
     return state.token != null
+  },
+  token(state) {
+    return state.token
   }
 }
