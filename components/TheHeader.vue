@@ -48,17 +48,24 @@
               </b-dropdown-item>
             </b-dropdown>
           </div>
+          <div class='navbar-item' v-if='isAuth && user.admin'>
+            <button class='button is-danger is-outlined is-small'>
+              <span>Valdymas</span>
+              <b-icon icon='settings' size='is-small'></b-icon>
+            </button>
+          </div>
           <b-dropdown position='is-bottom-left' aria-role='menu' v-if='isAuth'>
             <a class='navbar-item' slot='trigger' role='button'>
               <figure class='image is-24x24'>
                 <img class='is-rounded' src='https://bulma.io/images/placeholders/24x24.png'>
               </figure>
-              <span>Fiordas</span>
+              <span>{{user.username}}</span>
               <b-icon icon='menu-down' size='is-small'>></b-icon>
             </a>
-
-            <b-dropdown-item aria-role='menuitem'>
-              <b-icon icon='home'></b-icon>Profilis
+            <b-dropdown-item has-link aria-role='menuitem'>
+              <nuxt-link to='/profilis'>
+                <b-icon icon='home'></b-icon>Profilis
+              </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item @click='onLogout' aria-role='menuitem'>
               <b-icon icon='logout'></b-icon>Atsijungti
@@ -80,7 +87,15 @@ import SignIn from '@/components/auth/SignIn'
 export default {
   computed: {
     isAuth() {
-      return this.$store.getters['auth/isAuthenticated']
+      if (
+        this.$store.getters['auth/isAuthenticated'] &&
+        this.$store.getters['users/user']
+      )
+        return true
+      else return false
+    },
+    user() {
+      return this.$store.getters['users/user']
     }
   },
   components: {

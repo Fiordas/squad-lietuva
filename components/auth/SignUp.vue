@@ -6,7 +6,7 @@
           <div class='column'>
             <h1 class='subtitle has-text-centered'>Sukurti naują vartotoją</h1>
             <b-field label='Vartotojo vardas' custom-class='is-small'>
-              <b-input type='text' size='is-small' required autofocus></b-input>
+              <b-input type='text' v-model='username' size='is-small' required autofocus></b-input>
             </b-field>
             <b-field label='El. pašto adresas' custom-class='is-small'>
               <b-input type='email' v-model='email' size='is-small' required></b-input>
@@ -37,6 +37,7 @@
 export default {
   data() {
     return {
+      username: '',
       email: '',
       password: ''
     }
@@ -47,6 +48,7 @@ export default {
         .dispatch('auth/authenticateUser', {
           isSignUp: true,
           rememberUser: false,
+          username: this.username,
           email: this.email,
           password: this.password
         })
