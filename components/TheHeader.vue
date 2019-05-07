@@ -67,6 +67,11 @@
                 <b-icon icon='home'></b-icon>Profilis
               </nuxt-link>
             </b-dropdown-item>
+            <b-dropdown-item has-link aria-role='menuitem'>
+              <nuxt-link to='/nustatymai'>
+                <b-icon icon='settings'></b-icon>Nustatymai
+              </nuxt-link>
+            </b-dropdown-item>
             <b-dropdown-item @click='onLogout' aria-role='menuitem'>
               <b-icon icon='logout'></b-icon>Atsijungti
             </b-dropdown-item>
