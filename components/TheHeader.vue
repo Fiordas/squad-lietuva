@@ -2,7 +2,7 @@
   <nav class='navbar is-dark' role='navigation' aria-label='main navigation'>
     <div class='container'>
       <div class='navbar-brand'>
-        <nuxt-link to='/' class='navbar-item'>
+        <nuxt-link to='/' class='navbar-item' active-class>
           <img src='https://images.joinsquad.com/Logos/squadlogo_white_hires.png' width='62' height='28'>
         </nuxt-link>
         <a class='navbar-burger burger' aria-label='menu' aria-expanded='false'>
@@ -14,9 +14,8 @@
 
       <div class='navbar-menu'>
         <div class='navbar-start has-text-weight-semibold'>
-          <nuxt-link to='/' class='navbar-item'>Pagrindinis</nuxt-link>
+          <nuxt-link to='/' class='navbar-item' exact>Pagrindinis</nuxt-link>
           <nuxt-link to='turnyrai' class='navbar-item'>Turnyrai</nuxt-link>
-          <nuxt-link to='/' class='navbar-item'>Forumas</nuxt-link>
         </div>
         <div class='navbar-end'>
           <div class='navbar-item' v-if='!isAuth'>
@@ -38,10 +37,10 @@
                     <SignIn @close-dropdown='closeDropdown'/>
                     <hr class='dropdown-divider'>
                     <b-field>
-                      <small>Naujas vartotojas?</small>
+                      <small class='has-text-light'>Naujas vartotojas?</small>
                     </b-field>
                     <b-field>
-                      <button class='button is-primary is-inverted is-outlined is-fullwidth is-rounded' @click='isSignUpModalActive = true'>Registruotis</button>
+                      <button class='button is-primary is-inverted is-fullwidth is-rounded' @click='isSignUpModalActive = true'>Registruotis</button>
                     </b-field>
                   </section>
                 </div>
@@ -125,6 +124,9 @@ export default {
 </script>
 
 <style scoped>
+hr {
+  margin-top: 15px;
+}
 .image {
   margin-right: 10px;
 }

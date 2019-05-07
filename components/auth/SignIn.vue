@@ -7,7 +7,7 @@
       <b-input type='password' v-model='password' size='is-small' password-reveal required></b-input>
     </b-field>
     <b-field>
-      <b-checkbox v-model='rememberUser' size='is-small'>Prisiminti mane</b-checkbox>
+      <b-checkbox v-model='rememberUser' size='is-small' class='has-text-light'>Prisiminti mane</b-checkbox>
     </b-field>
     <b-field>
       <button class='button is-primary is-fullwidth is-rounded'>Prisijungti</button>

@@ -4,6 +4,23 @@ $primary: #ffc40b;
 $primary-invert: findColorInvert($primary);
 
 $body-background-color: $black;
+$title-color: $light;
+$subtitle-color: $light;
+$label-color: $light;
+
+$modal-card-body-background-color: $grey-dark;
+$dropdown-content-background-color: $grey-dark;
+$dropdown-item-color: $light;
+$dropdown-item-hover-background-color: $grey-light;
+
+$menu-label-color: $white;
+$menu-item-hover-background-color: $dark;
+$menu-item-hover-color: $light;
+$menu-item-color: $grey-light;
+
+$input-disabled-color: $black;
+$input-disabled-background-color: $grey-light;
+$input-disabled-border-color: $grey-light;
 
 .datepicker {
   .dropdown-content {

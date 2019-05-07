@@ -5,7 +5,7 @@
       <div class='container'>
         <div class='columns'>
           <div class='column'>
-            <h1 class='title has-text-light'>Naujienos</h1>
+            <h1 class='title'>Naujienos</h1>
           </div>
         </div>
         <div class='columns'>
