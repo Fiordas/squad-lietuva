@@ -28,7 +28,7 @@ export default {
     onSubmit() {
       this.$store
         .dispatch('auth/authenticateUser', {
-          isSignUp: false,
+          type: 'sign-in',
           rememberUser: this.rememberUser,
           email: this.email,
           password: this.password

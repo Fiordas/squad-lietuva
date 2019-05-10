@@ -44,14 +44,14 @@ export const actions = {
       })
       .catch(error => console.log(error))
   },
-  updateUserData({ commit }, { updateData, userId }) {
+  updateUserData({ commit, state }, updateData) {
     let updateMask = ''
     Object.keys(updateData).forEach(value => {
       updateMask += '&updateMask.fieldPaths=' + value
     })
     updateMask = updateMask.substring(1)
     return this.$axios
-      .$patch(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${userId}?${updateMask}`, {
+      .$patch(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${state.user.userId}?${updateMask}`, {
         fields: this.$firestoreMap(updateData)
       })
       .then(() => {

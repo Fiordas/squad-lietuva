@@ -14,7 +14,7 @@ export const mutations = {
 export const actions = {
   authenticateUser({ commit, dispatch }, authData) {
     let authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='
-    if (authData.isSignUp) authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='
+    if (authData.type == 'sign-up') authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='
     return this.$axios
       .$post(authUrl + process.env.API_KEY, {
         email: authData.email,
@@ -23,14 +23,17 @@ export const actions = {
       })
       .then(result => {
         commit('setToken', result.idToken)
-        if (authData.isSignUp) dispatch('users/setUserData', { authData, userId: result.localId }, { root: true })
-        else dispatch('users/getUserData', result.localId, { root: true })
+        if (authData.type == 'sign-in') dispatch('users/getUserData', result.localId, { root: true })
+        else if (authData.type == 'sign-up') dispatch('users/setUserData', { authData, userId: result.localId }, { root: true })
         this.$cookies.set('token', result.idToken)
         this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
         this.$cookies.set('userId', result.localId)
         if (authData.rememberUser) this.$cookies.set('refreshToken', result.refreshToken)
+        else if (this.$cookies.get('refreshToken')) this.$cookies.set('refreshToken', result.refreshToken)
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        return Promise.reject(error.response.data.error)
+      })
   },
   initAuth({ dispatch }) {
     const token = this.$cookies.get('token')
@@ -60,7 +63,29 @@ export const actions = {
         this.$cookies.set('token', result.id_token)
         this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expires_in) * 1000)
       })
-      .catch(error => console.log(error))
+  },
+  changeUserInfo({ dispatch, state }, newData) {
+    return new Promise((resolve, reject) => {
+      return dispatch('authenticateUser', newData)
+        .then(() => {
+          let payload = {
+            idToken: state.token,
+            returnSecureToken: false
+          }
+          if (newData.type == 'password-change') payload.password = newData.newPassword
+          else if (newData.type == 'email-change') payload.email = newData.newEmail
+          return this.$axios
+            .$post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=' + process.env.API_KEY, payload)
+            .then(result => {
+              if (newData.type == 'email-change') {
+                dispatch('users/updateUserData', { email: result.email }, { root: true })
+              }
+              resolve()
+            })
+            .catch(error => reject(error.response.data.error))
+        })
+        .catch(error => reject(error))
+    })
   },
   logout({ commit }) {
     commit('clearToken')
