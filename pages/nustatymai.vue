@@ -7,7 +7,10 @@
             <p class='menu-label'>Nustatymai</p>
             <ul class='menu-list'>
               <li>
-                <nuxt-link to='/nustatymai' exact>Pagrindinė informacija</nuxt-link>
+                <nuxt-link to='/nustatymai' exact>Apžvalga</nuxt-link>
+              </li>
+              <li>
+                <nuxt-link to='/nustatymai/informacija' exact>Papildoma informacija</nuxt-link>
               </li>
               <li>
                 <nuxt-link to='/nustatymai/pastas'>El. pašto adresas</nuxt-link>

@@ -21,7 +21,15 @@ export const actions = {
     const userData = {
       username: authData.username,
       email: authData.email,
-      admin: false
+      admin: false,
+      userId: userId,
+      role: 'Narys',
+      createdAt: new Date(),
+      lastLoginAt: new Date(),
+      name: '',
+      age: '',
+      city: '',
+      interests: ''
     }
     return this.$axios
       .$post(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users?documentId=${userId}`, {

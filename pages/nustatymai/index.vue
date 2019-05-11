@@ -1,57 +1,23 @@
 <template>
-  <div>
-    <h1 class='title'>{{user.username}}</h1>
-    <hr>
-    <div class='columns'>
-      <div class='column'>
-        <p class='title is-5'>El. pašto adresas</p>
-        <p class='subtitle is-7 is-spaced'>{{user.email}}</p>
-        <p class='title is-5'>Rolė</p>
-        <p class='subtitle is-7 is-spaced has-text-danger'>Administratorius</p>
-        <p class='title is-5'>Registracijos data</p>
-        <p class='subtitle is-7 is-spaced'>2018-05-22</p>
-        <p class='title is-5'>Paskutinis prisijungimas</p>
-        <p class='subtitle is-7'>2018-05-22</p>
-      </div>
-      <div class='column is-3'>
-        <figure class='image is-square'>
-          <img src='https://bulma.io/images/placeholders/480x480.png'>
-        </figure>
-      </div>
+  <div class='columns'>
+    <div class='column' v-if='user'>
+      <h1 class='title'>{{user.username}}</h1>
+      <hr>
+      <p class='title is-5'>El. pašto adresas</p>
+      <p class='subtitle is-7 is-spaced'>{{user.email}}</p>
+      <p class='title is-5'>Rolė</p>
+      <p class='subtitle is-7 is-spaced is-primary'>{{user.role}}</p>
+      <p class='title is-5'>Registracijos data</p>
+      <p class='subtitle is-7 is-spaced'>{{createdAt}}</p>
+      <p class='title is-5'>Paskutinis prisijungimas</p>
+      <p class='subtitle is-7'>{{lastLoginAt}}</p>
     </div>
-    <hr>
-    <h1 class='subtitle is-4'>Papildoma informacija</h1>
-    <div class='columns'>
-      <div class='column is-5'>
-        <div class='field'>
-          <label class='label'>Vardas</label>
-          <div class='control'>
-            <input class='input' type='text' :disabled='!isEditActive'>
-          </div>
-        </div>
-        <div class='field'>
-          <label class='label'>Amžius</label>
-          <div class='control'>
-            <input class='input' type='text' :disabled='!isEditActive'>
-          </div>
-        </div>
-        <div class='field'>
-          <label class='label'>Miestas</label>
-          <div class='control'>
-            <input class='input' type='text' :disabled='!isEditActive'>
-          </div>
-        </div>
-        <div class='field'>
-          <label class='label'>Pomėgiai</label>
-          <div class='control'>
-            <textarea class='textarea' :disabled='!isEditActive'></textarea>
-          </div>
-        </div>
-        <br>
-        <button v-show='!isEditActive' @click='isEditActive = !isEditActive' class='button is-primary'>Keisti</button>
-        <button v-show='isEditActive' @click='isEditActive = !isEditActive' class='button is-primary is-pulled-right'>Išsaugoti</button>
-        <button v-show='isEditActive' @click='isEditActive = !isEditActive' class='button is-primary is-outlined'>Atšaukti</button>
-      </div>
+    <div class='column is-4'>
+      <figure class='image is-square'>
+        <img src='https://bulma.io/images/placeholders/480x480.png'>
+      </figure>
+      <br>
+      <button class='button is-primary is-fullwidth is-outlined'>Pasirinkti nuotrauką</button>
     </div>
   </div>
 </template>
@@ -65,8 +31,26 @@ export default {
   },
   data() {
     return {
-      isEditActive: false
+      createdAt: new Date(),
+      lastLoginAt: new Date()
     }
+  },
+  created() {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric'
+    }
+    this.createdAt = new Date(this.user.createdAt).toLocaleDateString(
+      'lt',
+      options
+    )
+    this.lastLoginAt = new Date(this.user.lastLoginAt).toLocaleDateString(
+      'lt',
+      options
+    )
   }
 }
 </script>
