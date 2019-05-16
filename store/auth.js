@@ -97,8 +97,5 @@ export const actions = {
 export const getters = {
   isAuthenticated(state) {
     return state.token != null
-  },
-  token(state) {
-    return state.token
   }
 }
