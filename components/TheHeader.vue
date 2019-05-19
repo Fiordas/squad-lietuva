@@ -15,7 +15,7 @@
       <div class='navbar-menu'>
         <div class='navbar-start has-text-weight-semibold'>
           <nuxt-link to='/' class='navbar-item' exact>Pagrindinis</nuxt-link>
-          <nuxt-link to='turnyrai' class='navbar-item'>Turnyrai</nuxt-link>
+          <nuxt-link to='/turnyrai' class='navbar-item'>Turnyrai</nuxt-link>
         </div>
         <div class='navbar-end'>
           <div class='navbar-item' v-if='!isAuth'>
@@ -56,23 +56,35 @@
           <b-dropdown position='is-bottom-left' aria-role='menu' v-if='isAuth'>
             <a class='navbar-item' slot='trigger' role='button'>
               <figure class='image is-24x24'>
-                <img class='is-rounded' src='https://bulma.io/images/placeholders/24x24.png'>
+                <img
+                  v-if='!user.thumbnailDownloadToken'
+                  class='is-rounded thumbnail'
+                  src='https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612'
+                >
+                <img
+                  v-else
+                  class='is-rounded thumbnail'
+                  :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}_thumb?alt=media&token=${user.thumbnailDownloadToken}`'
+                >
               </figure>
               <span>{{user.username}}</span>
               <b-icon icon='menu-down' size='is-small'>></b-icon>
             </a>
             <b-dropdown-item has-link aria-role='menuitem'>
               <nuxt-link to='/profilis'>
-                <b-icon icon='home'></b-icon>Profilis
+                <b-icon icon='home'></b-icon>
+                <span>Profilis</span>
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item has-link aria-role='menuitem'>
               <nuxt-link to='/nustatymai'>
-                <b-icon icon='settings'></b-icon>Nustatymai
+                <b-icon icon='settings'></b-icon>
+                <span>Nustatymai</span>
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item @click='onLogout' aria-role='menuitem'>
-              <b-icon icon='logout'></b-icon>Atsijungti
+              <b-icon icon='logout'></b-icon>
+              <span>Atsijungti</span>
             </b-dropdown-item>
           </b-dropdown>
           <b-modal :active.sync='isSignUpModalActive' has-modal-card>
@@ -129,6 +141,11 @@ hr {
 }
 .image {
   margin-right: 10px;
+}
+.thumbnail {
+  object-fit: cover;
+  width: 24px;
+  height: 24px;
 }
 </style>
 

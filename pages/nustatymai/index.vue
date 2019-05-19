@@ -1,6 +1,6 @@
 <template>
-  <div class='columns'>
-    <div class='column' v-if='user'>
+  <div class='columns' v-if='user'>
+    <div class='column'>
       <h1 class='title'>{{user.username}}</h1>
       <hr>
       <p class='title is-5'>El. pašto adresas</p>
@@ -17,7 +17,7 @@
         <b-loading :active='true' :is-full-page='false'></b-loading>
         <img
           v-if='!user.photoDownloadToken'
-          src='https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=92d5c7ef-942a-4a7d-98d1-e380e5d2d46c'
+          src='https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612'
         >
         <img v-else :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}?alt=media&token=${user.photoDownloadToken}`'>
       </figure>
@@ -33,6 +33,8 @@
 </template>
 
 <script>
+import Compressor from 'compressorjs'
+
 export default {
   computed: {
     user() {
@@ -66,32 +68,80 @@ export default {
   },
   watch: {
     photoFile() {
+      if (!this.photoFile) return
       this.uploadPhoto()
     }
   },
   methods: {
     async uploadPhoto() {
+      const vm = this
       this.isLoading = true
-      return this.$axios
-        .$post(
-          process.env.STORAGE_URL +
-            process.env.BUCKET_NAME +
-            '/o?name=profilePhotos/' +
-            this.user.userId,
-          this.photoFile
-        )
-        .then(result => {
-          this.$store
-            .dispatch('users/updateUserData', {
-              photoDownloadToken: result.downloadTokens
-            })
-            .then(() => {
-              this.isLoading = false
+      new Compressor(this.photoFile, {
+        quality: 0.8,
+        success(result) {
+          const formData = new FormData()
+          formData.append('file', result, result.name)
+          return vm.$axios
+            .$post(
+              process.env.STORAGE_URL +
+                process.env.BUCKET_NAME +
+                '/o?name=profilePhotos/' +
+                vm.user.userId,
+              formData
+            )
+            .then(result => {
+              vm.$store
+                .dispatch('users/updateUserData', {
+                  photoDownloadToken: result.downloadTokens
+                })
+                .then(() => {
+                  vm.uploadThumbnail()
+                })
+                .catch(error => console.log(error.response.data))
             })
             .catch(error => console.log(error.response.data))
-        })
-        .catch(error => console.log(error.response.data))
+        }
+      })
+    },
+    async uploadThumbnail() {
+      const vm = this
+      new Compressor(this.photoFile, {
+        height: 128,
+        success(result) {
+          const formData = new FormData()
+          formData.append('file', result, result.name)
+          return vm.$axios
+            .$post(
+              process.env.STORAGE_URL +
+                process.env.BUCKET_NAME +
+                '/o?name=profilePhotos/' +
+                vm.user.userId +
+                '_thumb',
+              formData
+            )
+            .then(result => {
+              vm.$store
+                .dispatch('users/updateUserData', {
+                  thumbnailDownloadToken: result.downloadTokens
+                })
+                .then(() => {
+                  vm.photoFile = null
+                  vm.isLoading = false
+                })
+                .catch(error => console.log(error.response.data))
+            })
+            .catch(error => console.log(error.response.data))
+        }
+      })
     }
   }
 }
 </script>
+
+<style scoped>
+img {
+  object-fit: cover;
+  width: 20vh;
+  height: 20vh;
+}
+</style>
