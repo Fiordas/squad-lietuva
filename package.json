@@ -16,6 +16,7 @@
     "@nuxtjs/pwa": "^2.6.0",
     "bulma-divider": "^0.2.0",
     "bulma-material-form": "^0.1.0",
+    "compressorjs": "^1.0.5",
     "cookie-universal-nuxt": "^2.0.14",
     "cross-env": "^5.2.0",
     "firestore-parser": "^0.8.8",
