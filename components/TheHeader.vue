@@ -64,7 +64,7 @@
                 <img
                   v-else
                   class='is-rounded thumbnail'
-                  :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}_thumb?alt=media&token=${user.thumbnailDownloadToken}`'
+                  :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2Fthumbnail?alt=media&token=${user.thumbnailDownloadToken}`'
                 >
               </figure>
               <span>{{user.username}}</span>

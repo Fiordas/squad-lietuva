@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class='subtitle is-4'>Papildoma informacija</h1>
+    <h1 class='title'>Papildoma informacija</h1>
     <hr>
     <div class='columns'>
       <div class='column is-5'>

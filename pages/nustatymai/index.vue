@@ -19,7 +19,7 @@
           v-if='!user.photoDownloadToken'
           src='https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612'
         >
-        <img v-else :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}?alt=media&token=${user.photoDownloadToken}`'>
+        <img v-else :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2FprofilePhoto?alt=media&token=${user.photoDownloadToken}`'>
       </figure>
       <br>
       <b-upload v-model='photoFile'>
@@ -86,7 +86,8 @@ export default {
               process.env.STORAGE_URL +
                 process.env.BUCKET_NAME +
                 '/o?name=profilePhotos/' +
-                vm.user.userId,
+                vm.user.userId +
+                '/profilePhoto',
               formData
             )
             .then(result => {
@@ -100,6 +101,9 @@ export default {
                 .catch(error => console.log(error.response.data))
             })
             .catch(error => console.log(error.response.data))
+        },
+        error(err) {
+          console.log(err.message)
         }
       })
     },
@@ -116,7 +120,7 @@ export default {
                 process.env.BUCKET_NAME +
                 '/o?name=profilePhotos/' +
                 vm.user.userId +
-                '_thumb',
+                '/thumbnail',
               formData
             )
             .then(result => {
@@ -141,7 +145,5 @@ export default {
 <style scoped>
 img {
   object-fit: cover;
-  width: 20vh;
-  height: 20vh;
 }
 </style>
