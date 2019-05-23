@@ -47,12 +47,6 @@
               </b-dropdown-item>
             </b-dropdown>
           </div>
-          <div class='navbar-item' v-if='isAuth && user.admin'>
-            <button class='button is-danger is-outlined is-small'>
-              <span>Valdymas</span>
-              <b-icon icon='settings' size='is-small'></b-icon>
-            </button>
-          </div>
           <b-dropdown position='is-bottom-left' aria-role='menu' v-if='isAuth'>
             <a class='navbar-item' slot='trigger' role='button'>
               <figure class='image is-24x24'>
@@ -80,6 +74,12 @@
               <nuxt-link to='/nustatymai'>
                 <b-icon icon='settings'></b-icon>
                 <span>Nustatymai</span>
+              </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item has-link aria-role='menuitem' v-if='isAuth && user.admin'>
+              <nuxt-link to='/valdymas'>
+                <b-icon icon='shield'></b-icon>
+                <span>Valdymas</span>
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item @click='onLogout' aria-role='menuitem'>

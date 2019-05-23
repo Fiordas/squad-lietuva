@@ -23,6 +23,11 @@ $input-disabled-color: $black;
 $input-disabled-background-color: $grey-light;
 $input-disabled-border-color: $grey-light;
 
+$tabs-link-color: $light;
+$tabs-toggle-link-active-color: $black;
+$tabs-link-hover-color: $light;
+$tabs-toggle-link-hover-background-color: $grey-dark;
+
 .datepicker {
   .dropdown-content {
     background: $dark;
