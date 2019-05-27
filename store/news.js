@@ -1,5 +1,7 @@
 export const state = () => ({
-  posts: []
+  posts: [],
+  nextPageToken: null,
+  previousPageToken: []
 })
 
 export const mutations = {
@@ -8,6 +10,18 @@ export const mutations = {
   },
   addPost(state, postData) {
     state.posts.push(postData)
+  },
+  setNextPageToken(state, pageToken) {
+    state.nextPageToken = pageToken
+  },
+  clearNextPageToken(state) {
+    state.nextPageToken = null
+  },
+  addPreviousPageToken(state, pageToken) {
+    state.previousPageToken.push(pageToken)
+  },
+  removePreviousPageToken(state) {
+    state.previousPageToken.pop()
   }
 }
 
@@ -29,27 +43,32 @@ export const actions = {
       })
       .catch(error => console.log(error.response))
   },
-  getNewsPosts({ commit }, date) {
-    let structuredQuery = {
-      from: [{ collectionId: 'news' }],
-      orderBy: [{ field: { fieldPath: 'createTime' }, direction: 'DESCENDING' }],
-      select: { fields: [{ fieldPath: 'title' }, { fieldPath: 'summary' }, { fieldPath: 'authorName' }, { fieldPath: 'authorId' }, { fieldPath: 'createTime' }] }
-    }
-    if (date) structuredQuery.startAt = { values: [{ timestampValue: date }], before: false }
+  getNewsPosts({ commit, state }, options) {
+    let query = '?mask.fieldPaths=title&mask.fieldPaths=summary&mask.fieldPaths=authorName&mask.fieldPaths=authorId&mask.fieldPaths=createTime'
+    if (options && options.orderBy) query += '&orderBy=' + options.orderBy
+    else query += '&orderBy=createTime'
+    if (options && options.pageSize) query += '&pageSize=' + options.pageSize
+    else query += '&pageSize=3'
+    if (options && options.pageToken) query += '&pageToken=' + options.pageToken
+
+    if (options && options.moveToPrevious) commit('removePreviousPageToken')
+    else if (options && options.pageToken) commit('addPreviousPageToken', options.pageToken)
 
     return this.$axios
-      .$post(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents:runQuery`, {
-        structuredQuery
-      })
+      .$get(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news` + query)
       .then(result => {
         let postsData = []
-        result.forEach(data => {
-          let post = this.$firestoreParse(data.document.fields)
-          post.id = data.document.name.split('/').pop()
+        result.documents.forEach(data => {
+          let post = this.$firestoreParse(data.fields)
+          post.id = data.name.split('/').pop()
           postsData.push(post)
         })
         commit('setPosts', postsData)
-        console.log(result)
+        if (result.nextPageToken) {
+          commit('setNextPageToken', result.nextPageToken)
+        } else {
+          if (state.nextPageToken) commit('clearNextPageToken')
+        }
         return postsData
       })
       .catch(error => console.log(error.response))
