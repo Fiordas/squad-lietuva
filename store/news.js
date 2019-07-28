@@ -46,7 +46,7 @@ export const actions = {
   getNewsPosts({ commit, state }, options) {
     let query = '?mask.fieldPaths=title&mask.fieldPaths=summary&mask.fieldPaths=authorName&mask.fieldPaths=authorId&mask.fieldPaths=createTime'
     if (options && options.orderBy) query += '&orderBy=' + options.orderBy
-    else query += '&orderBy=createTime'
+    else query += '&orderBy=createTime+desc'
     if (options && options.pageSize) query += '&pageSize=' + options.pageSize
     else query += '&pageSize=3'
     if (options && options.pageToken) query += '&pageToken=' + options.pageToken
