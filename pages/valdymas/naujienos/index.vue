@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column">
         <h1 class="title">Naujienų valdymas</h1>
-        <hr>
+        <hr />
         <div class="columns">
           <div class="column">
             <h1 class="subtitle">Visos naujienos</h1>
@@ -28,14 +28,14 @@
             <article class="media">
               <figure class="media-left">
                 <p class="image is-64x64">
-                  <img src="https://bulma.io/images/placeholders/24x24.png">
+                  <img src="https://bulma.io/images/placeholders/24x24.png" />
                 </p>
               </figure>
               <div class="media-content">
                 <div class="content">
                   <p>
                     <strong>{{props.row.title}}</strong>
-                    <br>
+                    <br />
                     {{ props.row.summary }}
                   </p>
                 </div>
@@ -43,7 +43,7 @@
             </article>
           </template>
         </b-table>
-        <br>
+        <br />
         <div class="buttons">
           <button @click="previousPage" :disabled="isFirstPage" class="button is-primary">
             <b-icon icon="chevron-left"></b-icon>

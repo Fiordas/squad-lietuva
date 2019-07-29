@@ -1,57 +1,57 @@
 <template>
-  <div class='box has-background-dark'>
-    <div class='columns'>
-      <div class='column'>
-        <h1 class='title'>Prideti naujieną</h1>
+  <div class="box has-background-dark">
+    <div class="columns">
+      <div class="column">
+        <h1 class="title">Prideti naujieną</h1>
         <hr />
-        <div class='field'>
-          <label class='label'>Pavadinimas</label>
-          <div class='control'>
-            <input class='input' type='text' v-model='title' />
+        <div class="field">
+          <label class="label">Pavadinimas</label>
+          <div class="control">
+            <input class="input" type="text" v-model="title" />
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Santrauka</label>
-          <div class='control'>
-            <textarea class='textarea' v-model='summary'></textarea>
+        <div class="field">
+          <label class="label">Santrauka</label>
+          <div class="control">
+            <textarea class="textarea" v-model="summary"></textarea>
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Tekstas</label>
-          <div class='control has-text-light'>
+        <div class="field">
+          <label class="label">Tekstas</label>
+          <div class="control has-text-light">
             <no-ssr>
-              <editor-menu-bar :editor='editor' v-slot='{ commands, isActive, menu }'>
+              <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, menu }">
                 <div>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.bold() }' @click='commands.bold'>
-                    <b-icon icon='format-bold'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.bold() }" @click="commands.bold">
+                    <b-icon icon="format-bold"></b-icon>
                   </button>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.italic() }' @click='commands.italic'>
-                    <b-icon icon='format-italic'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.italic() }" @click="commands.italic">
+                    <b-icon icon="format-italic"></b-icon>
                   </button>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.strike() }' @click='commands.strike'>
-                    <b-icon icon='format-strikethrough'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.strike() }" @click="commands.strike">
+                    <b-icon icon="format-strikethrough"></b-icon>
                   </button>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.heading({ level: 1 }) }' @click='commands.heading({ level: 1 })'>
-                    <b-icon icon='format-header-1'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
+                    <b-icon icon="format-header-1"></b-icon>
                   </button>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.heading({ level: 2 }) }' @click='commands.heading({ level: 2 })'>
-                    <b-icon icon='format-header-2'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">
+                    <b-icon icon="format-header-2"></b-icon>
                   </button>
-                  <button class='button is-primary is-small' :class='{ "is-outlined": !isActive.heading({ level: 3 }) }' @click='commands.heading({ level: 3 })'>
-                    <b-icon icon='format-header-3'></b-icon>
+                  <button class="button is-primary is-small" :class="{ 'is-outlined': !isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">
+                    <b-icon icon="format-header-3"></b-icon>
                   </button>
                 </div>
               </editor-menu-bar>
-              <div class='content'>
-                <editor-content :editor='editor' />
+              <div class="content">
+                <editor-content :editor="editor" />
               </div>
             </no-ssr>
           </div>
         </div>
         <br />
-        <div class='buttons is-right'>
-          <nuxt-link to='/valdymas/naujienos' tag='button' class='button is-light is-inverted'>Atšaukti</nuxt-link>
-          <button @click='createNewsPost' class='button is-primary is-outlined'>Išsaugoti</button>
+        <div class="buttons is-right">
+          <nuxt-link to="/valdymas/naujienos" tag="button" class="button is-light is-inverted">Atšaukti</nuxt-link>
+          <button @click="createNewsPost" class="button is-primary is-outlined">Išsaugoti</button>
         </div>
       </div>
     </div>

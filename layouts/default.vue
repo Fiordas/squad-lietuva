@@ -1,8 +1,8 @@
 <template>
-  <div class='site'>
-    <TheHeader/>
-    <nuxt class='site-content'/>
-    <TheFooter/>
+  <div class="site">
+    <TheHeader />
+    <nuxt class="site-content" />
+    <TheFooter />
   </div>
 </template>
 

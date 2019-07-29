@@ -1,32 +1,30 @@
 <template>
-  <div class='columns' v-if='user'>
-    <div class='column'>
-      <h1 class='title'>{{user.username}}</h1>
-      <hr>
-      <p class='title is-5'>El. pašto adresas</p>
-      <p class='subtitle is-7 is-spaced'>{{user.email}}</p>
-      <p class='title is-5'>Rolė</p>
-      <p class='subtitle is-7 is-spaced is-primary'>{{user.role}}</p>
-      <p class='title is-5'>Registracijos data</p>
-      <p class='subtitle is-7 is-spaced'>{{createdAt}}</p>
-      <p class='title is-5'>Paskutinis prisijungimas</p>
-      <p class='subtitle is-7'>{{lastLoginAt}}</p>
+  <div class="columns" v-if="user">
+    <div class="column">
+      <h1 class="title">{{user.username}}</h1>
+      <hr />
+      <p class="title is-5">El. pašto adresas</p>
+      <p class="subtitle is-7 is-spaced">{{user.email}}</p>
+      <p class="title is-5">Rolė</p>
+      <p class="subtitle is-7 is-spaced is-primary">{{user.role}}</p>
+      <p class="title is-5">Registracijos data</p>
+      <p class="subtitle is-7 is-spaced">{{createdAt}}</p>
+      <p class="title is-5">Paskutinis prisijungimas</p>
+      <p class="subtitle is-7">{{lastLoginAt}}</p>
     </div>
-    <div class='column is-4'>
-      <figure class='image is-4by3'>
-        <b-loading :active='true' :is-full-page='false'></b-loading>
+    <div class="column is-4">
+      <figure class="image is-4by3">
+        <b-loading :active="true" :is-full-page="false"></b-loading>
         <img
-          v-if='!user.photoDownloadToken'
-          src='https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612'
-        >
-        <img v-else :src='`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2FprofilePhoto?alt=media&token=${user.photoDownloadToken}`'>
+          v-if="!user.photoDownloadToken"
+          src="https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612"
+        />
+        <img v-else :src="`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2FprofilePhoto?alt=media&token=${user.photoDownloadToken}`" />
       </figure>
-      <br>
-      <b-upload v-model='photoFile'>
-        <a class='button is-primary is-fullwidth is-outlined' :class='{"is-loading": isLoading}'>
-          <b-icon icon='upload'></b-icon>
-          <span>Pasirinkti nuotrauką</span>
-        </a>
+      <br />
+      <b-upload v-model="photoFile" class="button is-primary is-fullwidth is-outlined" :class="{'is-loading': isLoading}">
+        <b-icon icon="upload"></b-icon>
+        <span>Pasirinkti nuotrauką</span>
       </b-upload>
     </div>
   </div>

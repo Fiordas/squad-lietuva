@@ -1,30 +1,30 @@
 <template>
   <div>
-    <h1 class='title'>Keisti el. pašto adresą</h1>
-    <hr>
-    <div class='columns'>
-      <div class='column is-5'>
-        <div class='field'>
-          <label class='label'>Dabartinis el. pašto adresas</label>
-          <div class='control'>
-            <input class='input' type='text' :value='user.email' disabled>
+    <h1 class="title">Keisti el. pašto adresą</h1>
+    <hr />
+    <div class="columns">
+      <div class="column is-5">
+        <div class="field">
+          <label class="label">Dabartinis el. pašto adresas</label>
+          <div class="control">
+            <input class="input" type="text" :value="user.email" disabled />
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Naujas el. pašto adresas</label>
-          <div class='control'>
-            <input class='input' type='text' v-model='newEmail' :disabled='isLoading'>
+        <div class="field">
+          <label class="label">Naujas el. pašto adresas</label>
+          <div class="control">
+            <input class="input" type="text" v-model="newEmail" :disabled="isLoading" />
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Slaptažodis</label>
-          <div class='control'>
-            <input class='input' type='password' v-model='password' :disabled='isLoading'>
+        <div class="field">
+          <label class="label">Slaptažodis</label>
+          <div class="control">
+            <input class="input" type="password" v-model="password" :disabled="isLoading" />
           </div>
         </div>
-        <br>
-        <button class='button is-primary' @click='changeEmail' :class='{"is-loading": isLoading}'>Išsaugoti</button>
-        <p class='help' :class='helpText'>{{this.message}}</p>
+        <br />
+        <button class="button is-primary" @click="changeEmail" :class="{'is-loading': isLoading}">Išsaugoti</button>
+        <p class="help" :class="helpText">{{this.message}}</p>
       </div>
     </div>
   </div>

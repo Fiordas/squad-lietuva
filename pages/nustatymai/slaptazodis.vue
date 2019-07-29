@@ -1,30 +1,30 @@
 <template>
   <div>
-    <h1 class='title'>Keisti slaptažodį</h1>
-    <hr>
-    <div class='columns'>
-      <div class='column is-5'>
-        <div class='field'>
-          <label class='label'>Dabartinis slaptažodis</label>
-          <div class='control'>
-            <input class='input' type='password' v-model='password' :disabled='isLoading'>
+    <h1 class="title">Keisti slaptažodį</h1>
+    <hr />
+    <div class="columns">
+      <div class="column is-5">
+        <div class="field">
+          <label class="label">Dabartinis slaptažodis</label>
+          <div class="control">
+            <input class="input" type="password" v-model="password" :disabled="isLoading" />
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Naujas slaptažodis</label>
-          <div class='control'>
-            <input class='input' type='password' v-model='newPassword' :disabled='isLoading'>
+        <div class="field">
+          <label class="label">Naujas slaptažodis</label>
+          <div class="control">
+            <input class="input" type="password" v-model="newPassword" :disabled="isLoading" />
           </div>
         </div>
-        <div class='field'>
-          <label class='label'>Pakartoti naują slaptažodį</label>
-          <div class='control'>
-            <input class='input' type='password' :disabled='isLoading'>
+        <div class="field">
+          <label class="label">Pakartoti naują slaptažodį</label>
+          <div class="control">
+            <input class="input" type="password" :disabled="isLoading" />
           </div>
         </div>
-        <br>
-        <button class='button is-primary' @click='changePassword' :class='{"is-loading": isLoading}'>Išsaugoti</button>
-        <p class='help' :class='helpText'>{{this.message}}</p>
+        <br />
+        <button class="button is-primary" @click="changePassword" :class="{'is-loading': isLoading}">Išsaugoti</button>
+        <p class="help" :class="helpText">{{this.message}}</p>
       </div>
     </div>
   </div>
