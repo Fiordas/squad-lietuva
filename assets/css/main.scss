@@ -8,6 +8,8 @@ $title-color: $light;
 $subtitle-color: $light;
 $label-color: $light;
 
+$modal-card-title-color: $light;
+$modal-card-head-background-color: $grey-darker;
 $modal-card-body-background-color: $grey-dark;
 $dropdown-content-background-color: $grey-dark;
 $dropdown-item-color: $light;
@@ -29,6 +31,8 @@ $tabs-link-hover-color: $light;
 $tabs-toggle-link-hover-background-color: $grey-dark;
 
 $content-heading-color: $light;
+
+$navbar-breakpoint: 400px;
 
 .datepicker {
   .dropdown-content {
@@ -53,6 +57,40 @@ $content-heading-color: $light;
       color: $dark !important;
     }
   }
+}
+
+.modal-card-body {
+  color: $light;
+}
+
+.dropdown-item:focus {
+  outline: none;
+}
+
+.checkbox:hover {
+  .control-label {
+    color: $primary;
+  }
+}
+
+.ProseMirror:focus {
+  outline: none;
+}
+
+.ProseMirror {
+  height: 50vh;
+  overflow-y: scroll;
+}
+
+.ProseMirror::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ProseMirror::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: $primary;
 }
 
 $colors: (

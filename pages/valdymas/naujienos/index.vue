@@ -9,20 +9,39 @@
             <h1 class="subtitle">Visos naujienos</h1>
           </div>
           <div class="column">
-            <nuxt-link to="/valdymas/naujienos/prideti" tag="button" class="button is-primary is-outlined is-pulled-right">
-              <span>Pridėti</span>
+            <button @click="createNewsPost" :class="{'is-loading': isLoading}" class="button is-primary is-outlined is-pulled-right">
+              <span>Pridėti naujieną</span>
               <b-icon icon="plus-circle" size="is-small"></b-icon>
-            </nuxt-link>
+            </button>
           </div>
         </div>
 
-        <b-table detailed :data="newsPosts" default-sort="createTime" default-sort-direction="desc">
+        <b-table detailed :data="newsPosts" default-sort="createTime" default-sort-direction="desc" :loading="isLoading">
           <template slot-scope="props">
             <b-table-column field="title" label="Pavadinimas" sortable>{{ props.row.title }}</b-table-column>
 
             <b-table-column field="authorName" label="Autorius" sortable>{{ props.row.authorName }}</b-table-column>
 
-            <b-table-column field="createTime" label="Sukurta" sortable centered>{{ new Date(props.row.createTime).toLocaleDateString('lt', {hour: 'numeric', minute: 'numeric'}) }}</b-table-column>
+            <b-table-column
+              field="createTime"
+              label="Sukurta"
+              sortable
+              centered
+            >{{ new Date(props.row.createTime).toLocaleDateString('lt', {hour: 'numeric', minute: 'numeric'}) }}</b-table-column>
+
+            <b-table-column field="actions" label="Veiksmai">
+              <button
+                @click="$router.push(`/valdymas/naujienos/${props.row.id}`)"
+                class="button is-primary is-small"
+                :class="{'is-loading': isLoading}"
+                :disabled="!props.row.editable && props.row.updateTime > new Date(Date.now() - 1000 * 60).toISOString()"
+              >
+                <b-icon icon="pencil" size="is-small"></b-icon>
+              </button>
+              <button @click="confirmDeletePost(props.row)" class="button is-danger is-small" :class="{'is-loading': isLoading}">
+                <b-icon icon="close-circle" size="is-small"></b-icon>
+              </button>
+            </b-table-column>
           </template>
           <template slot="detail" slot-scope="props">
             <article class="media">
@@ -59,11 +78,13 @@
 
 <script>
 export default {
-  async asyncData({ store }) {
-    if (!store.state.news.posts || !store.state.news.posts.length) {
-      const data = await store.dispatch('news/getNewsPosts')
-      return { newsPosts: data }
-    }
+  async created() {
+    this.isLoading = true
+    const data = await this.$store.dispatch('news/getNewsPosts', {
+      pageSize: 3
+    })
+    this.newsPosts = data
+    this.isLoading = false
   },
   computed: {
     isLastPage() {
@@ -75,17 +96,57 @@ export default {
   },
   data() {
     return {
-      newsPosts: []
+      newsPosts: [],
+      isLoading: false
     }
   },
   methods: {
+    async createNewsPost() {
+      this.isLoading = true
+      const postData = {
+        title: 'Naujas įrašas',
+        content: '',
+        summary: '',
+        authorName: this.$store.state.users.user.username,
+        authorId: this.$store.state.users.user.userId,
+        editable: false,
+        published: false
+      }
+      return this.$axios
+        .$post(
+          `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news`,
+          {
+            fields: this.$firestoreMap(postData)
+          }
+        )
+        .then(response => {
+          postData.id = response.name.split('/').pop()
+          postData.createTime = response.createTime
+          return this.$axios
+            .$patch(
+              `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news/${postData.id}?updateMask.fieldPaths=createTime`,
+              {
+                fields: { createTime: { timestampValue: postData.createTime } }
+              }
+            )
+            .then(() => {
+              this.$router.push(`/valdymas/naujienos/${postData.id}`)
+              this.isLoading = false
+            })
+            .catch(error => console.log(error.response))
+        })
+        .catch(error => console.log(error.response))
+    },
     async nextPage() {
+      this.isLoading = true
       const data = await this.$store.dispatch('news/getNewsPosts', {
         pageToken: this.$store.state.news.nextPageToken
       })
       this.newsPosts = data
+      this.isLoading = false
     },
     async previousPage() {
+      this.isLoading = true
       let options = {
         moveToPrevious: true
       }
@@ -98,6 +159,32 @@ export default {
 
       const data = await this.$store.dispatch('news/getNewsPosts', options)
       this.newsPosts = data
+      this.isLoading = false
+    },
+    confirmDeletePost(post) {
+      this.$dialog.confirm({
+        title: 'Ištrinti naujieną',
+        message: `Ar tikrai nori <b>ištrinti</b> naujieną "${post.title}"?`,
+        confirmText: 'Ištrinti',
+        cancelText: 'Atšaukti',
+        type: 'is-danger',
+        hasIcon: true,
+        onConfirm: () => this.deletePost(post.id)
+      })
+    },
+    async deletePost(postId) {
+      this.isLoading = true
+      try {
+        await this.$axios.$delete(
+          `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news/${postId}`
+        )
+        this.newsPosts = await this.$store.dispatch('news/getNewsPosts', {
+          pageSize: 3
+        })
+      } catch (error) {
+        console.log(error)
+      }
+      this.isLoading = false
     }
   }
 }
