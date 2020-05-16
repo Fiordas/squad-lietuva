@@ -32,9 +32,12 @@ export const actions = {
       interests: ''
     }
     return this.$axios
-      .$post(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users?documentId=${userId}`, {
-        fields: this.$firestoreMap(userData)
-      })
+      .$post(
+        `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users?documentId=${userId}`,
+        {
+          fields: this.$firestoreMap(userData)
+        }
+      )
       .then(() => {
         commit('setUser', userData)
       })
@@ -42,7 +45,9 @@ export const actions = {
   },
   getUserData({ commit }, userId) {
     return this.$axios
-      .$get(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${userId}`)
+      .$get(
+        `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${userId}`
+      )
       .then(userData => {
         if (userData) {
           commit('setUser', this.$firestoreParse(userData.fields))
@@ -59,9 +64,12 @@ export const actions = {
     })
     updateMask = updateMask.substring(1)
     return this.$axios
-      .$patch(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${state.user.userId}?${updateMask}`, {
-        fields: this.$firestoreMap(updateData)
-      })
+      .$patch(
+        `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/users/${state.user.userId}?${updateMask}`,
+        {
+          fields: this.$firestoreMap(updateData)
+        }
+      )
       .then(() => {
         commit('updateUser', updateData)
       })

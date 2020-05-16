@@ -60,7 +60,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .column.has-vertically-aligned-content {
   display: flex;

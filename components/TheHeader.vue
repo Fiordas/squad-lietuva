@@ -40,7 +40,12 @@
                       <small class="has-text-light">Naujas vartotojas?</small>
                     </b-field>
                     <b-field>
-                      <button class="button is-primary is-inverted is-fullwidth is-rounded" @click="isSignUpModalActive = true">Registruotis</button>
+                      <button
+                        class="button is-primary is-inverted is-fullwidth is-rounded"
+                        @click="isSignUpModalActive = true"
+                      >
+                        Registruotis
+                      </button>
                     </b-field>
                   </section>
                 </div>
@@ -58,10 +63,12 @@
                 <img
                   v-else
                   class="is-rounded thumbnail"
-                  :src="`https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2Fthumbnail?alt=media&token=${user.thumbnailDownloadToken}`"
+                  :src="
+                    `https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2F${user.userId}%2Fthumbnail?alt=media&token=${user.thumbnailDownloadToken}`
+                  "
                 />
               </figure>
-              <span>{{user.username}}</span>
+              <span>{{ user.username }}</span>
               <b-icon icon="menu-down" size="is-small">></b-icon>
             </a>
             <b-dropdown-item has-link aria-role="menuitem">
@@ -103,11 +110,7 @@ import SignIn from '@/components/auth/SignIn'
 export default {
   computed: {
     isAuth() {
-      if (
-        this.$store.getters['auth/isAuthenticated'] &&
-        this.$store.getters['users/user']
-      )
-        return true
+      if (this.$store.getters['auth/isAuthenticated'] && this.$store.getters['users/user']) return true
       else return false
     },
     user() {
@@ -148,4 +151,3 @@ hr {
   height: 24px;
 }
 </style>
-

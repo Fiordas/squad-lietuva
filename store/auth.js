@@ -14,7 +14,8 @@ export const mutations = {
 export const actions = {
   authenticateUser({ commit, dispatch }, authData) {
     let authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='
-    if (authData.type == 'sign-up') authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='
+    if (authData.type == 'sign-up')
+      authUrl = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='
     return this.$axios
       .$post(authUrl + process.env.API_KEY, {
         email: authData.email,
@@ -24,7 +25,8 @@ export const actions = {
       .then(result => {
         commit('setToken', result.idToken)
         if (authData.type == 'sign-in') dispatch('users/getUserData', result.localId, { root: true })
-        else if (authData.type == 'sign-up') dispatch('users/setUserData', { authData, userId: result.localId }, { root: true })
+        else if (authData.type == 'sign-up')
+          dispatch('users/setUserData', { authData, userId: result.localId }, { root: true })
         this.$cookies.set('token', result.idToken)
         this.$cookies.set('tokenExpiration', new Date().getTime() + Number.parseInt(result.expiresIn) * 1000)
         this.$cookies.set('userId', result.localId)
@@ -75,7 +77,10 @@ export const actions = {
           if (newData.type == 'password-change') payload.password = newData.newPassword
           else if (newData.type == 'email-change') payload.email = newData.newEmail
           return this.$axios
-            .$post('https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=' + process.env.API_KEY, payload)
+            .$post(
+              'https://www.googleapis.com/identitytoolkit/v3/relyingparty/setAccountInfo?key=' + process.env.API_KEY,
+              payload
+            )
             .then(result => {
               if (newData.type == 'email-change') {
                 dispatch('users/updateUserData', { email: result.email }, { root: true })

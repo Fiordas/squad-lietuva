@@ -70,7 +70,11 @@
                   >
                     <b-icon icon="format-header-3"></b-icon>
                   </button>
-                  <button class="button is-primary is-small is-outlined" @click="showImageUploadModal(commands.image)" :disabled="isLoading">
+                  <button
+                    class="button is-primary is-small is-outlined"
+                    @click="showImageUploadModal(commands.image)"
+                    :disabled="isLoading"
+                  >
                     <b-icon icon="image-outline"></b-icon>
                   </button>
 
@@ -112,7 +116,9 @@
         <br />
         <div class="buttons is-right">
           <nuxt-link to="/valdymas/naujienos" tag="button" class="button is-light is-inverted">Atšaukti</nuxt-link>
-          <button @click="editNewsPost" :class="{'is-loading': isLoading}" class="button is-primary is-outlined">Išsaugoti</button>
+          <button @click="editNewsPost" :class="{ 'is-loading': isLoading }" class="button is-primary is-outlined">
+            Išsaugoti
+          </button>
         </div>
       </div>
     </div>

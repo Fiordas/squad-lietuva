@@ -9,7 +9,13 @@
             <NewsBox v-for="post in newsPosts" :key="post.id" :postData="post" />
           </div>
           <div class="column is-5-tablet is-4-desktop is-3-widescreen">
-            <iframe src="https://discordapp.com/widget?id=246075715714416641&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
+            <iframe
+              src="https://discordapp.com/widget?id=246075715714416641&theme=dark"
+              width="350"
+              height="500"
+              allowtransparency="true"
+              frameborder="0"
+            ></iframe>
           </div>
         </div>
       </div>
@@ -47,4 +53,3 @@ iframe {
   min-height: 500px;
 }
 </style>
-

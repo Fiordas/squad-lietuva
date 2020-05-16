@@ -23,8 +23,10 @@
           </div>
         </div>
         <br />
-        <button class="button is-primary" @click="changePassword" :class="{'is-loading': isLoading}">Išsaugoti</button>
-        <p class="help" :class="helpText">{{this.message}}</p>
+        <button class="button is-primary" @click="changePassword" :class="{ 'is-loading': isLoading }">
+          Išsaugoti
+        </button>
+        <p class="help" :class="helpText">{{ this.message }}</p>
       </div>
     </div>
   </div>
@@ -73,8 +75,7 @@ export default {
           this.isLoading = false
           this.error = true
           if (error.message == 'INVALID_PASSWORD')
-            this.message =
-              'Operacija neįvygdyta. Nurodytas neteisingas dabartinis slaptažodis.'
+            this.message = 'Operacija neįvygdyta. Nurodytas neteisingas dabartinis slaptažodis.'
           else this.message = 'Operacija neįvygdyta. Bandykite dar kartą.'
         })
     }

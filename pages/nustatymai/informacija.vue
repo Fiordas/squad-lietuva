@@ -29,8 +29,8 @@
           </div>
         </div>
         <br />
-        <button class="button is-primary" @click="updateInfo" :class="{'is-loading': isLoading}">Išsaugoti</button>
-        <p class="help" :class="helpText">{{this.message}}</p>
+        <button class="button is-primary" @click="updateInfo" :class="{ 'is-loading': isLoading }">Išsaugoti</button>
+        <p class="help" :class="helpText">{{ this.message }}</p>
       </div>
     </div>
   </div>

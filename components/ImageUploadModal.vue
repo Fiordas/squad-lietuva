@@ -36,7 +36,7 @@
 
         <div class="tags">
           <span v-for="(file, index) in dropFiles" :key="index" class="tag is-primary">
-            {{file.name}}
+            {{ file.name }}
             <button class="delete is-small" type="button" @click="deleteDropFile(index)"></button>
           </span>
         </div>
@@ -85,9 +85,7 @@ export default {
             this.imageSources.push(
               `https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/newsImages%2F${
                 this.postId
-              }%2F${result.name.split('/').pop()}?alt=media&token=${
-                result.downloadTokens
-              }`
+              }%2F${result.name.split('/').pop()}?alt=media&token=${result.downloadTokens}`
             )
           })
         )
@@ -117,4 +115,3 @@ export default {
   max-width: 300px;
 }
 </style>
-

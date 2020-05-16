@@ -8,7 +8,11 @@ module.exports = {
    */
   head: {
     title: pkg.name,
-    meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }, { hid: 'description', name: 'description', content: pkg.description }],
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'description', name: 'description', content: pkg.description }
+    ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
@@ -48,7 +52,20 @@ module.exports = {
   buefy: {
     css: false,
     defaultDayNames: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
-    defaultMonthNames: ['Sausis', 'Vasaris', 'Kovas', 'Balandis', 'Gegužė', 'Birželis', 'Liepa', 'Rugpjūtis', 'Rugsėjis', 'Spalis', 'Lapkritis', 'Gruodis']
+    defaultMonthNames: [
+      'Sausis',
+      'Vasaris',
+      'Kovas',
+      'Balandis',
+      'Gegužė',
+      'Birželis',
+      'Liepa',
+      'Rugpjūtis',
+      'Rugsėjis',
+      'Spalis',
+      'Lapkritis',
+      'Gruodis'
+    ]
   },
   /*
    ** Axios module configuration

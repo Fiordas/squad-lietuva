@@ -31,7 +31,8 @@ export const mutations = {
 
 export const actions = {
   getNewsPosts({ commit, state }, options) {
-    let query = '?mask.fieldPaths=title&mask.fieldPaths=summary&mask.fieldPaths=authorName&mask.fieldPaths=authorId&mask.fieldPaths=createTime&mask.fieldPaths=editable&mask.fieldPaths=published'
+    let query =
+      '?mask.fieldPaths=title&mask.fieldPaths=summary&mask.fieldPaths=authorName&mask.fieldPaths=authorId&mask.fieldPaths=createTime&mask.fieldPaths=editable&mask.fieldPaths=published'
     if (options && options.orderBy) query += '&orderBy=' + options.orderBy
     else query += '&orderBy=createTime+desc'
     if (options && options.pageSize) commit('setPageSize', options.pageSize)
@@ -43,11 +44,16 @@ export const actions = {
     else commit('clearPreviousPageTokens')
 
     return this.$axios
-      .$get(`https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news` + query)
+      .$get(
+        `https://firestore.googleapis.com/v1/projects/${process.env.PROJECT_ID}/databases/(default)/documents/news` +
+          query
+      )
       .then(result => {
-        const postsData = result.documents.map(document =>
-          ({ ...this.$firestoreParse(document.fields), id: document.name.split('/').pop(), updateTime: document.updateTime })
-        )
+        const postsData = result.documents.map(document => ({
+          ...this.$firestoreParse(document.fields),
+          id: document.name.split('/').pop(),
+          updateTime: document.updateTime
+        }))
         commit('setPosts', postsData)
         if (result.nextPageToken) {
           commit('setNextPageToken', result.nextPageToken)

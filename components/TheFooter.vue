@@ -28,4 +28,3 @@
   filter: brightness(0.8);
 }
 </style>
-

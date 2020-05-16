@@ -9,36 +9,50 @@
             <h1 class="subtitle">Visos naujienos</h1>
           </div>
           <div class="column">
-            <button @click="createNewsPost" :class="{'is-loading': isLoading}" class="button is-primary is-outlined is-pulled-right">
+            <button
+              @click="createNewsPost"
+              :class="{ 'is-loading': isLoading }"
+              class="button is-primary is-outlined is-pulled-right"
+            >
               <span>Pridėti naujieną</span>
               <b-icon icon="plus-circle" size="is-small"></b-icon>
             </button>
           </div>
         </div>
 
-        <b-table detailed :data="newsPosts" default-sort="createTime" default-sort-direction="desc" :loading="isLoading">
+        <b-table
+          detailed
+          :data="newsPosts"
+          default-sort="createTime"
+          default-sort-direction="desc"
+          :loading="isLoading"
+        >
           <template slot-scope="props">
             <b-table-column field="title" label="Pavadinimas" sortable>{{ props.row.title }}</b-table-column>
 
             <b-table-column field="authorName" label="Autorius" sortable>{{ props.row.authorName }}</b-table-column>
 
-            <b-table-column
-              field="createTime"
-              label="Sukurta"
-              sortable
-              centered
-            >{{ new Date(props.row.createTime).toLocaleDateString('lt', {hour: 'numeric', minute: 'numeric'}) }}</b-table-column>
+            <b-table-column field="createTime" label="Sukurta" sortable centered>{{
+              new Date(props.row.createTime).toLocaleDateString('lt', {
+                hour: 'numeric',
+                minute: 'numeric'
+              })
+            }}</b-table-column>
 
             <b-table-column field="actions" label="Veiksmai">
               <button
                 @click="$router.push(`/valdymas/naujienos/${props.row.id}`)"
                 class="button is-primary is-small"
-                :class="{'is-loading': isLoading}"
+                :class="{ 'is-loading': isLoading }"
                 :disabled="!props.row.editable && props.row.updateTime > new Date(Date.now() - 1000 * 60).toISOString()"
               >
                 <b-icon icon="pencil" size="is-small"></b-icon>
               </button>
-              <button @click="confirmDeletePost(props.row)" class="button is-danger is-small" :class="{'is-loading': isLoading}">
+              <button
+                @click="confirmDeletePost(props.row)"
+                class="button is-danger is-small"
+                :class="{ 'is-loading': isLoading }"
+              >
                 <b-icon icon="close-circle" size="is-small"></b-icon>
               </button>
             </b-table-column>
@@ -53,7 +67,7 @@
               <div class="media-content">
                 <div class="content">
                   <p>
-                    <strong>{{props.row.title}}</strong>
+                    <strong>{{ props.row.title }}</strong>
                     <br />
                     {{ props.row.summary }}
                   </p>
@@ -152,9 +166,7 @@ export default {
       }
 
       if (this.$store.state.news.previousPageToken.length > 1) {
-        options.pageToken = Array.from(
-          this.$store.state.news.previousPageToken
-        ).slice(-2)[0]
+        options.pageToken = Array.from(this.$store.state.news.previousPageToken).slice(-2)[0]
       }
 
       const data = await this.$store.dispatch('news/getNewsPosts', options)
@@ -189,4 +201,3 @@ export default {
   }
 }
 </script>
-
