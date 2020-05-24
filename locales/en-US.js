@@ -1,0 +1,103 @@
+export default {
+  GENERAL: {
+    ADD: 'Add',
+    SAVE: 'Save',
+    CANCEL: 'Cancel',
+    DELETE: 'Delete',
+    OR: 'Or',
+    CONFIRM_ACTION: 'Confirm Action',
+    CONFIRM_LEAVE: 'Are you sure you want to <b>leave</b>?',
+    SAVE_AND_LEAVE: 'Save and leave'
+  },
+  ERROR: {
+    TRY_AGAIN: 'There was an error. Please try again.',
+    INVALID_PASSWORD: 'There was an error. Invalid password provided.',
+    EMAIL_EXISTS: 'There was an error. This E-Mail-Address already exists.'
+  },
+  HEADER: {
+    HOME: 'Home',
+    EVENTS: 'Events'
+  },
+  AUTH: {
+    USERNAME: 'Username',
+    EMAIL: 'E-Mail-Address',
+    PASSWORD: 'Password',
+    REGISTER: 'Register',
+    LOGIN: 'Login',
+    REMEMBER_ME: 'Remember me',
+    CREATE_NEW_USER: 'Create new user account',
+    LOGIN_THROUGH_STEAM: 'Login through Steam',
+    REPEAT_PASSWORD: 'Repeat password',
+    NEW_USER: 'New user?',
+    USER_PROFILE: 'Profile',
+    LOGOUT: 'Logout'
+  },
+  SETTINGS: {
+    TITLE: 'Settings',
+    OVERVIEW: 'Overview',
+    ROLE: 'Role',
+    DATE_REGISTERED: 'Date registered',
+    LAST_LOGIN: 'Last login',
+    SELECT_PHOTO: 'Select photo',
+    ADDITIONAL_INFO: 'Additional information',
+    NAME: 'Name',
+    AGE: 'Age',
+    CITY: 'City',
+    INTERESTS: 'Interests',
+    INFORMATION_UPDATED: 'Information updated.',
+    CHANGE_EMAIL: 'Change E-Mail-Address',
+    CURRENT_EMAIL: 'Current E-Mail-Address',
+    NEW_EMAIL: 'New E-Mail-Address',
+    EMAIL_UPDATED: 'E-Mail-Address updated.',
+    CHANGE_PASSWORD: 'Change password',
+    CURRENT_PASSWORD: 'Current password',
+    NEW_PASSWORD: 'New password',
+    REPEAT_PASSWORD: 'Repeat password',
+    PASSWORD_UPDATED: 'Password updated.'
+  },
+  MANAGE: {
+    TITLE: 'Manage',
+    WEBSITE_MANAGEMENT: 'Website management',
+    OVERVIEW: 'Overview',
+    NEWS: 'News',
+    NEWS_MANAGEMENT: 'News management',
+    ALL_POSTS: 'All posts',
+    AUTHOR: 'Author',
+    CREATED_AT: 'Created at',
+    ACTIONS: 'Actions',
+    NEW_POST: 'New post',
+    ADD_POST: 'Add post',
+    POST_TITLE: 'Title',
+    POST_SUMMARY: 'Summary',
+    POST_TEXT: 'Text',
+    PUBLISH_POST: 'Publish post',
+    DELETE_POST: 'Delete post',
+    CONFIRM_POST_DELETE: 'Are you sure you want to <b>delete</b> post "{post}"?'
+  },
+  IMAGE_UPLOAD: {
+    TITLE: 'Add photos',
+    DRAG_OR_SELECT_IMAGES: 'Drag and drop or click to select'
+  },
+  EVENTS: {
+    UPCOMING_EVENTS: 'Upcoming events',
+    JANUARY: 'January',
+    FEBRUARY: 'February',
+    MARCH: 'March',
+    APRIL: 'April',
+    MAY: 'May',
+    JUNE: 'June',
+    JULY: 'July',
+    AUGUST: 'August',
+    SEPTEMBER: 'September',
+    OCTOBER: 'October',
+    NOVEMBER: 'November',
+    DECEMBER: 'December',
+    MONDAY_SHORT: 'M',
+    TUESDAY_SHORT: 'Tu',
+    WEDNESDAY_SHORT: 'W',
+    THURSDAY_SHORT: 'Th',
+    FRIDAY_SHORT: 'F',
+    SATURDAY_SHORT: 'S',
+    SUNDAY_SHORT: 'Su'
+  }
+}

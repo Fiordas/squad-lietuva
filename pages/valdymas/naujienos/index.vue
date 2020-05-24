@@ -2,11 +2,11 @@
   <div class="box has-background-dark">
     <div class="columns">
       <div class="column">
-        <h1 class="title">Naujienų valdymas</h1>
+        <h1 class="title">{{ $t('MANAGE.NEWS_MANAGEMENT') }}</h1>
         <hr />
         <div class="columns">
           <div class="column">
-            <h1 class="subtitle">Visos naujienos</h1>
+            <h1 class="subtitle">{{ $t('MANAGE.ALL_POSTS') }}</h1>
           </div>
           <div class="column">
             <button
@@ -14,7 +14,7 @@
               :class="{ 'is-loading': isLoading }"
               class="button is-primary is-outlined is-pulled-right"
             >
-              <span>Pridėti naujieną</span>
+              <span>{{ $t('MANAGE.ADD_POST') }}</span>
               <b-icon icon="plus-circle" size="is-small"></b-icon>
             </button>
           </div>
@@ -28,20 +28,26 @@
           :loading="isLoading"
         >
           <template slot-scope="props">
-            <b-table-column field="title" label="Pavadinimas" sortable>{{ props.row.title }}</b-table-column>
-
-            <b-table-column field="authorName" label="Autorius" sortable>{{ props.row.authorName }}</b-table-column>
-
-            <b-table-column field="createTime" label="Sukurta" sortable centered>{{
-              new Date(props.row.createTime).toLocaleDateString('lt', {
-                hour: 'numeric',
-                minute: 'numeric'
-              })
+            <b-table-column field="title" :label="$t('MANAGE.POST_TITLE')" sortable>{{
+              props.row.title
             }}</b-table-column>
 
-            <b-table-column field="actions" label="Veiksmai">
+            <b-table-column field="authorName" :label="$t('MANAGE.AUTHOR')" sortable>{{
+              props.row.authorName
+            }}</b-table-column>
+
+            <b-table-column field="createTime" :label="$t('MANAGE.CREATED_AT')" sortable centered>
+              {{
+                new Date(props.row.createTime).toLocaleDateString('lt', {
+                  hour: 'numeric',
+                  minute: 'numeric'
+                })
+              }}
+            </b-table-column>
+
+            <b-table-column field="actions" :label="$t('MANAGE.ACTIONS')">
               <button
-                @click="$router.push(`/valdymas/naujienos/${props.row.id}`)"
+                @click="$router.push(localePath({ name: 'valdymas-naujienos-id', params: { id: props.row.id } }))"
                 class="button is-primary is-small"
                 :class="{ 'is-loading': isLoading }"
                 :disabled="!props.row.editable && props.row.updateTime > new Date(Date.now() - 1000 * 60).toISOString()"
@@ -92,6 +98,12 @@
 
 <script>
 export default {
+  nuxtI18n: {
+    paths: {
+      lt: '/valdymas/naujienos',
+      en: '/manage/news'
+    }
+  },
   async created() {
     this.isLoading = true
     const data = await this.$store.dispatch('news/getNewsPosts', {
@@ -118,7 +130,7 @@ export default {
     async createNewsPost() {
       this.isLoading = true
       const postData = {
-        title: 'Naujas įrašas',
+        title: this.$t('MANAGE.NEW_POST'),
         content: '',
         summary: '',
         authorName: this.$store.state.users.user.username,
@@ -144,7 +156,7 @@ export default {
               }
             )
             .then(() => {
-              this.$router.push(`/valdymas/naujienos/${postData.id}`)
+              this.$router.push(localePath({ name: 'valdymas-naujienos-id', params: { id: postData.id } }))
               this.isLoading = false
             })
             .catch(error => console.log(error.response))
@@ -175,10 +187,10 @@ export default {
     },
     confirmDeletePost(post) {
       this.$dialog.confirm({
-        title: 'Ištrinti naujieną',
-        message: `Ar tikrai nori <b>ištrinti</b> naujieną "${post.title}"?`,
-        confirmText: 'Ištrinti',
-        cancelText: 'Atšaukti',
+        title: this.$t('MANAGE.DELETE_POST'),
+        message: this.$t('MANAGE.CONFIRM_POST_DELETE', { post: post.title }),
+        confirmText: this.$t('GENERAL.DELETE'),
+        cancelText: this.$t('GENERAL.CANCEL'),
         type: 'is-danger',
         hasIcon: true,
         onConfirm: () => this.deletePost(post.id)

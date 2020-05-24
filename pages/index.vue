@@ -3,7 +3,7 @@
     <TheBanner />
     <section class="section">
       <div class="container">
-        <h1 class="title">Naujienos</h1>
+        <h1 class="title">{{ $t('MANAGE.NEWS') }}</h1>
         <div class="columns">
           <div class="column">
             <NewsBox v-for="post in newsPosts" :key="post.id" :postData="post" />

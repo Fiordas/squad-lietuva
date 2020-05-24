@@ -1,0 +1,103 @@
+export default {
+  GENERAL: {
+    ADD: 'Pridėti',
+    SAVE: 'Išsaugoti',
+    CANCEL: 'Atšaukti',
+    DELETE: 'Ištrinti',
+    OR: 'Arba',
+    CONFIRM_ACTION: 'Patvirtink veiksmą',
+    CONFIRM_LEAVE: 'Ar tikrai nori <b>išeiti</b>?',
+    SAVE_AND_LEAVE: 'Išeiti ir išsaugoti'
+  },
+  ERROR: {
+    TRY_AGAIN: 'Operacija neįvygdyta. Bandykite dar kartą.',
+    INVALID_PASSWORD: 'Operacija neįvygdyta. Nurodytas neteisingas dabartinis slaptažodis.',
+    EMAIL_EXISTS: 'Operacija neįvygdyta. Toks el. pašto adresas jau egzistuoja.'
+  },
+  HEADER: {
+    HOME: 'Pagrindinis',
+    EVENTS: 'Renginiai'
+  },
+  AUTH: {
+    USERNAME: 'Vartotojo vardas',
+    EMAIL: 'El. pašto adresas',
+    PASSWORD: 'Slaptažodis',
+    REGISTER: 'Registruotis',
+    LOGIN: 'Prisijungti',
+    REMEMBER_ME: 'Prisiminti mane',
+    CREATE_NEW_USER: 'Sukurti naują vartotoją',
+    LOGIN_THROUGH_STEAM: 'Prisijungti per Steam paskyrą',
+    REPEAT_PASSWORD: 'Pakartoti slaptažodį',
+    NEW_USER: 'Naujas vartotojas?',
+    USER_PROFILE: 'Profilis',
+    LOGOUT: 'Atsijungti'
+  },
+  SETTINGS: {
+    TITLE: 'Nustatymai',
+    OVERVIEW: 'Apžvalga',
+    ROLE: 'Rolė',
+    DATE_REGISTERED: 'Registracijos data',
+    LAST_LOGIN: 'Paskutinis prisijungimas',
+    SELECT_PHOTO: 'Pasirinkti nuotrauką',
+    ADDITIONAL_INFO: 'Papildoma informacija',
+    NAME: 'Vardas',
+    AGE: 'Amžius',
+    CITY: 'Miestas',
+    INTERESTS: 'Pomėgiai',
+    INFORMATION_UPDATED: 'Informacija atnaujinta.',
+    CHANGE_EMAIL: 'Keisti el. pašto adresą',
+    CURRENT_EMAIL: 'Dabartinis el. pašto adresas',
+    NEW_EMAIL: 'Naujas el. pašto adresas',
+    EMAIL_UPDATED: 'El. pašto adresas atnaujintas.',
+    CHANGE_PASSWORD: 'Keisti slaptažodį',
+    CURRENT_PASSWORD: 'Dabartinis slaptažodis',
+    NEW_PASSWORD: 'Naujas slaptažodis',
+    REPEAT_PASSWORD: 'Pakartoti naują slaptažodį',
+    PASSWORD_UPDATED: 'Slaptažodžis atnaujintas.'
+  },
+  MANAGE: {
+    TITLE: 'Valdymas',
+    WEBSITE_MANAGEMENT: 'Puslapio valdymas',
+    OVERVIEW: 'Apžvalga',
+    NEWS: 'Naujienos',
+    NEWS_MANAGEMENT: 'Naujienų valdymas',
+    ALL_POSTS: 'Visos naujienos',
+    AUTHOR: 'Autorius',
+    CREATED_AT: 'Sukurta',
+    ACTIONS: 'Veiksmai',
+    NEW_POST: 'Naujas įrašas',
+    ADD_POST: 'Pridėti naujieną',
+    POST_TITLE: 'Pavadinimas',
+    POST_SUMMARY: 'Santrauka',
+    POST_TEXT: 'Tekstas',
+    PUBLISH_POST: 'Publikuoti naujieną',
+    DELETE_POST: 'Ištrinti naujieną',
+    CONFIRM_POST_DELETE: 'Ar tikrai nori <b>ištrinti</b> naujieną "{post}"?'
+  },
+  IMAGE_UPLOAD: {
+    TITLE: 'Pridėti nuotraukas',
+    DRAG_OR_SELECT_IMAGES: 'Nutempti failus arba paspausti ir pasirinkti atskirai'
+  },
+  EVENTS: {
+    UPCOMING_EVENTS: 'Artimiausi renginiai',
+    JANUARY: 'Sausis',
+    FEBRUARY: 'Vasaris',
+    MARCH: 'Kovas',
+    APRIL: 'Balandis',
+    MAY: 'Gegužė',
+    JUNE: 'Birželis',
+    JULY: 'Liepa',
+    AUGUST: 'Rugpjūtis',
+    SEPTEMBER: 'Rugsėjis',
+    OCTOBER: 'Spalis',
+    NOVEMBER: 'Lapkritis',
+    DECEMBER: 'Gruodis',
+    MONDAY_SHORT: 'Pr',
+    TUESDAY_SHORT: 'A',
+    WEDNESDAY_SHORT: 'T',
+    THURSDAY_SHORT: 'K',
+    FRIDAY_SHORT: 'Pn',
+    SATURDAY_SHORT: 'Š',
+    SUNDAY_SHORT: 'S'
+  }
+}

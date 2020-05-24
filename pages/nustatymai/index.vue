@@ -3,13 +3,13 @@
     <div class="column">
       <h1 class="title">{{ user.username }}</h1>
       <hr />
-      <p class="title is-5">El. pašto adresas</p>
+      <p class="title is-5">{{ $t('AUTH.EMAIL') }}</p>
       <p class="subtitle is-7 is-spaced">{{ user.email }}</p>
-      <p class="title is-5">Rolė</p>
+      <p class="title is-5">{{ $t('SETTINGS.ROLE') }}</p>
       <p class="subtitle is-7 is-spaced is-primary">{{ user.role }}</p>
-      <p class="title is-5">Registracijos data</p>
+      <p class="title is-5">{{ $t('SETTINGS.DATE_REGISTERED') }}</p>
       <p class="subtitle is-7 is-spaced">{{ createdAt }}</p>
-      <p class="title is-5">Paskutinis prisijungimas</p>
+      <p class="title is-5">{{ $t('SETTINGS.LAST_LOGIN') }}</p>
       <p class="subtitle is-7">{{ lastLoginAt }}</p>
     </div>
     <div class="column is-4">
@@ -33,7 +33,7 @@
         :class="{ 'is-loading': isLoading }"
       >
         <b-icon icon="upload"></b-icon>
-        <span>Pasirinkti nuotrauką</span>
+        <span>{{ $t('SETTINGS.SELECT_PHOTO') }}</span>
       </b-upload>
     </div>
   </div>

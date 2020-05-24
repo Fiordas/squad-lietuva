@@ -1,35 +1,37 @@
 <template>
   <div>
-    <h1 class="title">Papildoma informacija</h1>
+    <h1 class="title">{{ $t('SETTINGS.ADDITIONAL_INFO') }}</h1>
     <hr />
     <div class="columns">
       <div class="column is-5">
         <div class="field">
-          <label class="label">Vardas</label>
+          <label class="label">{{ $t('SETTINGS.NAME') }}</label>
           <div class="control">
             <input class="input" type="text" v-model="name" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Amžius</label>
+          <label class="label">{{ $t('SETTINGS.AGE') }}</label>
           <div class="control">
             <input class="input" type="number" min="10" max="100" v-model="age" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Miestas</label>
+          <label class="label">{{ $t('SETTINGS.CITY') }}</label>
           <div class="control">
             <input class="input" type="text" v-model="city" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Pomėgiai</label>
+          <label class="label">{{ $t('SETTINGS.INTERESTS') }}</label>
           <div class="control">
             <textarea class="textarea" v-model="interests" :disabled="isLoading"></textarea>
           </div>
         </div>
         <br />
-        <button class="button is-primary" @click="updateInfo" :class="{ 'is-loading': isLoading }">Išsaugoti</button>
+        <button class="button is-primary" @click="updateInfo" :class="{ 'is-loading': isLoading }">
+          {{ $t('GENERAL.SAVE') }}
+        </button>
         <p class="help" :class="helpText">{{ this.message }}</p>
       </div>
     </div>
@@ -38,6 +40,12 @@
 
 <script>
 export default {
+  nuxtI18n: {
+    paths: {
+      lt: '/nustatymai/informacija',
+      en: '/settings/information'
+    }
+  },
   computed: {
     user() {
       return this.$store.getters['users/user']
@@ -79,12 +87,12 @@ export default {
         .then(() => {
           this.isLoading = false
           this.error = false
-          this.message = 'Informacija atnaujinta.'
+          this.message = this.$t('SETTINGS.INFORMATION_UPDATED')
         })
         .catch(() => {
           this.isLoading = false
           this.error = true
-          this.message = 'Operacija neįvygdyta. Bandykite dar kartą.'
+          this.message = this.$t('ERROR.TRY_AGAIN')
         })
     }
   }

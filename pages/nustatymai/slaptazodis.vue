@@ -1,30 +1,30 @@
 <template>
   <div>
-    <h1 class="title">Keisti slaptažodį</h1>
+    <h1 class="title">{{ $t('SETTINGS.CHANGE_PASSWORD') }}</h1>
     <hr />
     <div class="columns">
       <div class="column is-5">
         <div class="field">
-          <label class="label">Dabartinis slaptažodis</label>
+          <label class="label">{{ $t('SETTINGS.CURRENT_PASSWORD') }}</label>
           <div class="control">
             <input class="input" type="password" v-model="password" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Naujas slaptažodis</label>
+          <label class="label">{{ $t('SETTINGS.NEW_PASSWORD') }}</label>
           <div class="control">
             <input class="input" type="password" v-model="newPassword" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Pakartoti naują slaptažodį</label>
+          <label class="label">{{ $t('SETTINGS.REPEAT_PASSWORD') }}</label>
           <div class="control">
             <input class="input" type="password" :disabled="isLoading" />
           </div>
         </div>
         <br />
         <button class="button is-primary" @click="changePassword" :class="{ 'is-loading': isLoading }">
-          Išsaugoti
+          {{ $t('GENERAL.SAVE') }}
         </button>
         <p class="help" :class="helpText">{{ this.message }}</p>
       </div>
@@ -34,6 +34,12 @@
 
 <script>
 export default {
+  nuxtI18n: {
+    paths: {
+      lt: '/nustatymai/slaptazodis',
+      en: '/settings/password'
+    }
+  },
   computed: {
     user() {
       return this.$store.getters['users/user']
@@ -69,14 +75,13 @@ export default {
           this.error = false
           this.password = ''
           this.newPassword = ''
-          this.message = 'Slaptažodžis atnaujintas.'
+          this.message = this.$t('SETTINGS.PASSWORD_UPDATED')
         })
         .catch(error => {
           this.isLoading = false
           this.error = true
-          if (error.message == 'INVALID_PASSWORD')
-            this.message = 'Operacija neįvygdyta. Nurodytas neteisingas dabartinis slaptažodis.'
-          else this.message = 'Operacija neįvygdyta. Bandykite dar kartą.'
+          if (error.message == 'INVALID_PASSWORD') this.message = this.$t('ERROR.INVALID_PASSWORD')
+          else this.message = this.$t('ERROR.TRY_AGAIN')
         })
     }
   }

@@ -4,25 +4,25 @@
       <section class="modal-card-body">
         <div class="columns">
           <div class="column">
-            <h1 class="subtitle has-text-centered">Sukurti naują vartotoją</h1>
-            <b-field label="Vartotojo vardas" custom-class="is-small">
+            <h1 class="subtitle has-text-centered">{{ $t('AUTH.CREATE_NEW_USER') }}</h1>
+            <b-field :label="$t('AUTH.USERNAME')" custom-class="is-small">
               <b-input type="text" v-model="username" size="is-small" required autofocus></b-input>
             </b-field>
-            <b-field label="El. pašto adresas" custom-class="is-small">
+            <b-field :label="$t('AUTH.EMAIL')" custom-class="is-small">
               <b-input type="email" v-model="email" size="is-small" required></b-input>
             </b-field>
-            <b-field label="Slaptažodis" custom-class="is-small">
+            <b-field :label="$t('AUTH.PASSWORD')" custom-class="is-small">
               <b-input type="password" v-model="password" size="is-small" password-reveal required></b-input>
             </b-field>
-            <b-field label="Pakartoti slaptažodį" custom-class="is-small">
+            <b-field :label="$t('AUTH.REPEAT_PASSWORD')" custom-class="is-small">
               <b-input type="password" size="is-small" password-reveal required></b-input>
             </b-field>
             <br />
-            <button class="button is-primary is-fullwidth is-rounded">Registruotis</button>
+            <button class="button is-primary is-fullwidth is-rounded">{{ $t('AUTH.REGISTER') }}</button>
           </div>
-          <div class="is-divider-vertical" data-content="ARBA"></div>
+          <div class="is-divider-vertical" :data-content="$t('GENERAL.OR').toUpperCase()"></div>
           <div class="column has-vertically-aligned-content has-text-centered">
-            <h1 class="subtitle">Prisijungti per Steam paskyrą</h1>
+            <h1 class="subtitle">{{ $t('AUTH.LOGIN_THROUGH_STEAM') }}</h1>
             <a href="https://steamcommunity.com/dev">
               <img src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_02.png" />
             </a>

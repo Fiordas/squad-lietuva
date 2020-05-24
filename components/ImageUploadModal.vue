@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" style="width: auto">
     <section class="modal-card-body has-text-centered">
-      <h1 class="title">Pridėti nuotraukas</h1>
+      <h1 class="title">{{ $t('IMAGE_UPLOAD.TITLE') }}</h1>
       <div class="field has-addons" v-for="(input, index) in linkInputCount" :key="index">
         <p class="control">
           <a class="button is-static">
@@ -18,7 +18,7 @@
         </p>
       </div>
 
-      <div class="is-divider" data-content="ARBA"></div>
+      <div class="is-divider" :data-content="$t('GENERAL.OR').toUpperCase()"></div>
 
       <section>
         <b-field>
@@ -28,7 +28,7 @@
                 <p>
                   <b-icon icon="upload" size="is-large"></b-icon>
                 </p>
-                <p>Nutempti failus arba paspausti ir pasirinkti atskirai</p>
+                <p>{{ $t('IMAGE_UPLOAD.DRAG_OR_SELECT_IMAGES') }}</p>
               </div>
             </section>
           </b-upload>
@@ -44,8 +44,12 @@
 
       <br />
 
-      <button @click="$parent.close()" class="button is-light is-inverted is-pulled-left">Atšaukti</button>
-      <button @click="addImages()" class="button is-primary is-outlined is-pulled-right">Pridėti</button>
+      <button @click="$parent.close()" class="button is-light is-inverted is-pulled-left">
+        {{ $t('GENERAL.CANCEL') }}
+      </button>
+      <button @click="addImages()" class="button is-primary is-outlined is-pulled-right">
+        {{ $t('GENERAL.ADD') }}
+      </button>
     </section>
   </div>
 </template>

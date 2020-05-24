@@ -2,22 +2,22 @@
   <div class="box has-background-dark">
     <div class="columns">
       <div class="column">
-        <h1 class="title">Prideti naujieną</h1>
+        <h1 class="title">{{ $t('MANAGE.ADD_POST') }}</h1>
         <hr />
         <div class="field">
-          <label class="label">Pavadinimas</label>
+          <label class="label">{{ $t('MANAGE.POST_TITLE') }}</label>
           <div class="control">
             <input class="input" type="text" v-model="title" :disabled="isLoading" />
           </div>
         </div>
         <div class="field">
-          <label class="label">Santrauka</label>
+          <label class="label">{{ $t('MANAGE.POST_SUMMARY') }}</label>
           <div class="control">
             <textarea class="textarea" v-model="summary" :disabled="isLoading"></textarea>
           </div>
         </div>
         <div class="field">
-          <label class="label">Tekstas</label>
+          <label class="label">{{ $t('MANAGE.POST_TEXT') }}</label>
           <div class="control has-text-light">
             <no-ssr>
               <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, menu }">
@@ -111,13 +111,15 @@
           </div>
         </div>
         <div class="field has-text-light">
-          <b-checkbox v-model="published" :disabled="isLoading">Publikuoti naujieną</b-checkbox>
+          <b-checkbox v-model="published" :disabled="isLoading">{{ $t('MANAGE.PUBLISH_POST') }}</b-checkbox>
         </div>
         <br />
         <div class="buttons is-right">
-          <nuxt-link to="/valdymas/naujienos" tag="button" class="button is-light is-inverted">Atšaukti</nuxt-link>
+          <nuxt-link :to="localePath('valdymas-naujienos')" tag="button" class="button is-light is-inverted">{{
+            $t('GENERAL.CANCEL')
+          }}</nuxt-link>
           <button @click="editNewsPost" :class="{ 'is-loading': isLoading }" class="button is-primary is-outlined">
-            Išsaugoti
+            {{ $t('GENERAL.SAVE') }}
           </button>
         </div>
       </div>
@@ -148,6 +150,12 @@ import Alignment from '~/plugins/Alignment.js'
 import ImageUploadModal from '~/components/ImageUploadModal'
 
 export default {
+  nuxtI18n: {
+    paths: {
+      lt: '/valdymas/naujienos/:id',
+      en: '/manage/news/:id'
+    }
+  },
   components: {
     EditorMenuBar,
     EditorContent,
@@ -211,7 +219,7 @@ export default {
         )
         .then(() => {
           this.isLoading = false
-          this.$router.push('/valdymas/naujienos/')
+          this.$router.push(this.localePath('valdymas-naujienos'))
         })
         .catch(error => console.log(error))
     },
@@ -275,10 +283,10 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     this.$dialog.confirm({
-      title: 'Patvirtink veiksmą',
-      message: `Ar tikrai nori <b>išeiti</b> iš naujienos kūrimo?`,
-      confirmText: 'Išeiti ir išsaugoti',
-      cancelText: 'Atšaukti',
+      title: this.$t('GENERAL.CONFIRM_ACTION'),
+      message: this.$t('GENERAL.CONFIRM_LEAVE'),
+      confirmText: this.$t('GENERAL.SAVE_AND_LEAVE'),
+      cancelText: this.$t('GENERAL.CANCEL'),
       type: 'is-warning',
       hasIcon: true,
       onConfirm: () => next()

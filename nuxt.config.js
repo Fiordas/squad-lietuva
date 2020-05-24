@@ -47,25 +47,30 @@ module.exports = {
     'nuxt-buefy',
     '@nuxtjs/pwa',
     '@nuxtjs/dotenv',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'nuxt-i18n'
   ],
   buefy: {
-    css: false,
-    defaultDayNames: ['S', 'Pr', 'A', 'T', 'K', 'Pn', 'Š'],
-    defaultMonthNames: [
-      'Sausis',
-      'Vasaris',
-      'Kovas',
-      'Balandis',
-      'Gegužė',
-      'Birželis',
-      'Liepa',
-      'Rugpjūtis',
-      'Rugsėjis',
-      'Spalis',
-      'Lapkritis',
-      'Gruodis'
-    ]
+    css: false
+  },
+  i18n: {
+    locales: [
+      {
+        name: 'Lietuvių',
+        code: 'lt',
+        iso: 'lt',
+        file: 'lt-LT.js'
+      },
+      {
+        name: 'English',
+        code: 'en',
+        iso: 'us',
+        file: 'en-US.js'
+      }
+    ],
+    defaultLocale: 'lt',
+    langDir: 'locales/',
+    lazy: true
   },
   /*
    ** Axios module configuration
