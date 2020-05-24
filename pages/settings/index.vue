@@ -14,7 +14,6 @@
     </div>
     <div class="column is-4">
       <figure class="image is-4by3">
-        <b-loading :active="true" :is-full-page="false"></b-loading>
         <img
           v-if="!user.photoDownloadToken"
           src="https://firebasestorage.googleapis.com/v0/b/squad-lietuva.appspot.com/o/profilePhotos%2Fplaceholder.png?alt=media&token=0f38b42f-7271-4fba-a73f-60c4ca214612"

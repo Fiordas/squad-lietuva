@@ -19,7 +19,7 @@
         <div class="field">
           <label class="label">{{ $t('MANAGE.POST_TEXT') }}</label>
           <div class="control has-text-light">
-            <no-ssr>
+            <client-only>
               <editor-menu-bar :editor="editor" v-slot="{ commands, isActive, menu }">
                 <div>
                   <button
@@ -107,7 +107,7 @@
               <div class="content">
                 <editor-content :editor="editor" />
               </div>
-            </no-ssr>
+            </client-only>
           </div>
         </div>
         <div class="field has-text-light">
@@ -282,7 +282,7 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-    this.$dialog.confirm({
+    this.$buefy.dialog.confirm({
       title: this.$t('GENERAL.CONFIRM_ACTION'),
       message: this.$t('GENERAL.CONFIRM_LEAVE'),
       confirmText: this.$t('GENERAL.SAVE_AND_LEAVE'),

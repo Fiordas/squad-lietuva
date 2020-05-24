@@ -156,7 +156,7 @@ export default {
               }
             )
             .then(() => {
-              this.$router.push(localePath({ name: 'manage-news-id', params: { id: postData.id } }))
+              this.$router.push(this.localePath({ name: 'manage-news-id', params: { id: postData.id } }))
               this.isLoading = false
             })
             .catch(error => console.log(error.response))
@@ -186,7 +186,7 @@ export default {
       this.isLoading = false
     },
     confirmDeletePost(post) {
-      this.$dialog.confirm({
+      this.$buefy.dialog.confirm({
         title: this.$t('MANAGE.DELETE_POST'),
         message: this.$t('MANAGE.CONFIRM_POST_DELETE', { post: post.title }),
         confirmText: this.$t('GENERAL.DELETE'),
