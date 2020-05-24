@@ -7,16 +7,16 @@
             <p class="menu-label">{{ $t('SETTINGS.TITLE') }}</p>
             <ul class="menu-list">
               <li>
-                <nuxt-link :to="localePath('nustatymai')" exact>{{ $t('SETTINGS.OVERVIEW') }}</nuxt-link>
+                <nuxt-link :to="localePath('settings')" exact>{{ $t('SETTINGS.OVERVIEW') }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link :to="localePath('nustatymai-informacija')">{{ $t('SETTINGS.ADDITIONAL_INFO') }}</nuxt-link>
+                <nuxt-link :to="localePath('settings-information')">{{ $t('SETTINGS.ADDITIONAL_INFO') }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link :to="localePath('nustatymai-pastas')">{{ $t('AUTH.EMAIL') }}</nuxt-link>
+                <nuxt-link :to="localePath('settings-email')">{{ $t('AUTH.EMAIL') }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link :to="localePath('nustatymai-slaptazodis')">{{ $t('AUTH.PASSWORD') }}</nuxt-link>
+                <nuxt-link :to="localePath('settings-password')">{{ $t('AUTH.PASSWORD') }}</nuxt-link>
               </li>
             </ul>
           </aside>

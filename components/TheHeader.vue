@@ -15,7 +15,7 @@
       <div class="navbar-menu">
         <div class="navbar-start has-text-weight-semibold">
           <nuxt-link :to="localePath('/')" class="navbar-item" exact>{{ $t('HEADER.HOME') }}</nuxt-link>
-          <nuxt-link :to="localePath('turnyrai')" class="navbar-item">{{ $t('HEADER.EVENTS') }}</nuxt-link>
+          <nuxt-link :to="localePath('events')" class="navbar-item">{{ $t('HEADER.EVENTS') }}</nuxt-link>
         </div>
         <div class="navbar-end">
           <b-dropdown hoverable>
@@ -83,19 +83,19 @@
               <b-icon icon="menu-down"></b-icon>
             </a>
             <b-dropdown-item has-link aria-role="menuitem">
-              <nuxt-link :to="localePath('profilis')">
+              <nuxt-link :to="localePath('profile')">
                 <b-icon icon="home"></b-icon>
                 <span>{{ $t('AUTH.USER_PROFILE') }}</span>
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item has-link aria-role="menuitem">
-              <nuxt-link :to="localePath('nustatymai')">
+              <nuxt-link :to="localePath('settings')">
                 <b-icon icon="settings"></b-icon>
                 <span>{{ $t('SETTINGS.TITLE') }}</span>
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item has-link aria-role="menuitem" v-if="isAuth && user.admin">
-              <nuxt-link :to="localePath('valdymas')">
+              <nuxt-link :to="localePath('manage')">
                 <b-icon icon="shield"></b-icon>
                 <span>{{ $t('MANAGE.TITLE') }}</span>
               </nuxt-link>

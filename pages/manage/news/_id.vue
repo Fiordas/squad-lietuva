@@ -115,7 +115,7 @@
         </div>
         <br />
         <div class="buttons is-right">
-          <nuxt-link :to="localePath('valdymas-naujienos')" tag="button" class="button is-light is-inverted">{{
+          <nuxt-link :to="localePath('manage-news')" tag="button" class="button is-light is-inverted">{{
             $t('GENERAL.CANCEL')
           }}</nuxt-link>
           <button @click="editNewsPost" :class="{ 'is-loading': isLoading }" class="button is-primary is-outlined">
@@ -219,7 +219,7 @@ export default {
         )
         .then(() => {
           this.isLoading = false
-          this.$router.push(this.localePath('valdymas-naujienos'))
+          this.$router.push(this.localePath('manage-news'))
         })
         .catch(error => console.log(error))
     },

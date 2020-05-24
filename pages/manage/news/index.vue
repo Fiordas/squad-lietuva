@@ -47,7 +47,7 @@
 
             <b-table-column field="actions" :label="$t('MANAGE.ACTIONS')">
               <button
-                @click="$router.push(localePath({ name: 'valdymas-naujienos-id', params: { id: props.row.id } }))"
+                @click="$router.push(localePath({ name: 'manage-news-id', params: { id: props.row.id } }))"
                 class="button is-primary is-small"
                 :class="{ 'is-loading': isLoading }"
                 :disabled="!props.row.editable && props.row.updateTime > new Date(Date.now() - 1000 * 60).toISOString()"
@@ -156,7 +156,7 @@ export default {
               }
             )
             .then(() => {
-              this.$router.push(localePath({ name: 'valdymas-naujienos-id', params: { id: postData.id } }))
+              this.$router.push(localePath({ name: 'manage-news-id', params: { id: postData.id } }))
               this.isLoading = false
             })
             .catch(error => console.log(error.response))

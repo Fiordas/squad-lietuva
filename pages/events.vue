@@ -51,7 +51,7 @@
 export default {
   nuxtI18n: {
     paths: {
-      lt: '/turnyrai',
+      lt: '/renginiai',
       en: '/events'
     }
   }

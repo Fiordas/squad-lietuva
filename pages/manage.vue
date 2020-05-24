@@ -7,10 +7,10 @@
             <p class="menu-label">{{ $t('MANAGE.WEBSITE_MANAGEMENT') }}</p>
             <ul class="menu-list">
               <li>
-                <nuxt-link :to="localePath('valdymas')" exact>{{ $t('MANAGE.OVERVIEW') }}</nuxt-link>
+                <nuxt-link :to="localePath('manage')" exact>{{ $t('MANAGE.OVERVIEW') }}</nuxt-link>
               </li>
               <li>
-                <nuxt-link :to="localePath('valdymas-naujienos')">{{ $t('MANAGE.NEWS') }}</nuxt-link>
+                <nuxt-link :to="localePath('manage-news')">{{ $t('MANAGE.NEWS') }}</nuxt-link>
               </li>
             </ul>
           </aside>
