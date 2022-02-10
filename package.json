@@ -23,7 +23,7 @@
     "firestore-parser": "^0.8.9",
     "flag-icon-css": "^3.4.6",
     "lodash": "^4.17.15",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "nuxt": "^2.12.2",
     "nuxt-buefy": "^0.3.29",
     "nuxt-i18n": "^6.11.1",
